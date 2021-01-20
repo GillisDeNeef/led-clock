@@ -1,0 +1,8 @@
+DRC Rules Export File for PCB: D:\Documents\Projecten\LED Clock\altium\DriverBoard\PCB.PcbDoc
+RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=4.00
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=5.00
+RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=9.00
+RuleKind=Clearance|RuleName=Antenna Clearance|Scope=Board|Minimum=15.00
+RuleKind=Clearance|RuleName=MFRC630 Clearance|Scope=Board|Minimum=5.00
+RuleKind=Clearance|RuleName=Shielding Clearance|Scope=Board|Minimum=19.69

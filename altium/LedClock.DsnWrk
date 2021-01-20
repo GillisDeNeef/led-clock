@@ -1,0 +1,6 @@
+[ProjectGroup]
+Version=1.0
+[Project1]
+ProjectPath=DriverBoard\DriverBoard.PrjPcb
+[Project2]
+ProjectPath=LedSegment\LedSegment.PrjPcb
