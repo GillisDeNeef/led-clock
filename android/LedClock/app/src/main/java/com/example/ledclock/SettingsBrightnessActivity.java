@@ -29,6 +29,7 @@ public class SettingsBrightnessActivity extends AppCompatActivity {
             }
         });
 
+        
         // Set brightness day upon clicking linearlayout
         mDay = (LinearLayout) findViewById(R.id.BrightnessDayLayout);
         mDay.setOnClickListener(new View.OnClickListener(){

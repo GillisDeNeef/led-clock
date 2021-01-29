@@ -14,7 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LedClock">
-        <activity android:name=".SettingsBrightnessActivity"></activity>
+        <service
+            android:name=".bluetooth.BluetoothDataService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity android:name=".SettingsBrightnessActivity" />
         <activity android:name=".SettingsColorsActivity" />
         <activity android:name=".SettingsRefreshActivity" />
         <activity android:name=".SettingsLocationActivity" />

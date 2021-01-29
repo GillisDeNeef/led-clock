@@ -37,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:orientation="vertical"
         android:padding="15dp"
