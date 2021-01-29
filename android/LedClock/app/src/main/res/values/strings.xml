@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">LedClock</string>
+
+    <string name="main_starting">Starting bluetooth adapter</string>
+    <string name="main_start_discovery">Searching bluetooth devices</string>
+    <string name="main_stop_discover">Press icon to start searching</string>
+
+    <string name="settings_title">LED Clock settings</string>
+    <string name="settings_option_disconnect">Disconnect</string>
+    <string name="settings_network_title">Network</string>
+    <string name="settings_network_wifi">Wifi credentials</string>
+    <string name="settings_time_title">Time</string>
+    <string name="settings_time_ntp">NTP server</string>
+    <string name="settings_time_geolocation">Geolocation</string>
+    <string name="settings_time_refresh">Refresh rate</string>
+    <string name="settings_light_title">Light</string>
+    <string name="settings_light_colors">Colors</string>
+    <string name="settings_light_brightness">Brightness</string>
+
+    <string name="wifi_settings_title">Wifi credentials</string>
+    <string name="wifi_settings_ssid_title">SSID</string>
+    <string name="wifi_settings_ssid_description">Telenet-9F219EB</string>
+    <string name="wifi_settings_password_title">Password</string>
+    <string name="wifi_settings_password_description">********</string>
+
+    <string name="ntp_settings_title">NTP server</string>
+    <string name="ntp_settings_server_title">NTP server</string>
+    <string name="ntp_settings_server_description">pool.ntp.com</string>
+    <string name="ntp_settings_gmt_title">GMT offset (min)</string>
+    <string name="ntp_settings_gmt_description">60</string>
+    <string name="ntp_settings_daylight_title">Daylight saving time (min)</string>
+    <string name="ntp_settings_daylight_description">60</string>
+
+    <string name="location_settings_title">Geolocation</string>
+    <string name="location_settings_longitude_title">Longitude</string>
+    <string name="location_settings_longitude_description">50.99738942954772</string>
+    <string name="location_settings_latitude_title">Latitude</string>
+    <string name="location_settings_latitude_description">3.859491100565309</string>
+
+    <string name="refresh_settings_title">Refresh rate</string>
+    <string name="refresh_settings_rate_title">Refresh rate (ms)</string>
+    <string name="refresh_settings_rate_description">1000</string>
+
+    <string name="colors_settings_title">Colors</string>
+    <string name="colors_settings_hours_title">Hours color (hex)</string>
+    <string name="colors_settings_hours_description">0xFFFFFF</string>
+    <string name="colors_settings_minutes_title">Minutes color (hex)</string>
+    <string name="colors_settings_minutes_description">0xFFFFFF</string>
+
+    <string name="brightness_settings_title">Brightness</string>
+    <string name="brightness_settings_day_title">Brightness day (%)</string>
+    <string name="brightness_settings_day_description">20</string>
+    <string name="brightness_settings_night_title">Brightness night (%)</string>
+    <string name="brightness_settings_night_description">5</string>
+
+</resources>

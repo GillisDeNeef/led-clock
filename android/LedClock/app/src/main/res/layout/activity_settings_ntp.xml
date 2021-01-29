@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsNtpActivity">
+
+    <ImageButton
+        android:id="@+id/NtpBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@null"
+        android:tint="@color/gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/arrow_back_24px" />
+
+    <TextView
+        android:id="@+id/NtpTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/product_sans_bold"
+        android:text="@string/ntp_settings_title"
+        android:textColor="@color/gray"
+        android:textSize="19sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/NtpServerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:padding="15dp"
+        app:layout_constraintEnd_toStartOf="@+id/NtpTitleText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NtpTitleText">
+
+        <TextView
+            android:id="@+id/NtpServerTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="3dp"
+            android:fontFamily="@font/product_sans_regular"
+            android:text="@string/ntp_settings_server_title"
+            android:textColor="@color/gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/NtpServerDescriptionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/product_sans_regular"
+            android:text="@string/ntp_settings_server_description"
+            android:textColor="@color/lightest_gray" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/NtpGmtLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:orientation="vertical"
+        android:padding="15dp"
+        app:layout_constraintEnd_toStartOf="@+id/NtpTitleText"
+        app:layout_constraintHorizontal_bias="0.011"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NtpServerLayout">
+
+        <TextView
+            android:id="@+id/NtpGmtTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="3dp"
+            android:fontFamily="@font/product_sans_regular"
+            android:text="@string/ntp_settings_gmt_title"
+            android:textColor="@color/gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/NtpGmtDescriptionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/product_sans_regular"
+            android:text="@string/ntp_settings_gmt_description"
+            android:textColor="@color/lightest_gray" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/NtpDaylightLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:orientation="vertical"
+        android:padding="15dp"
+        app:layout_constraintEnd_toStartOf="@+id/NtpServerLayout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NtpGmtLayout">
+
+        <TextView
+            android:id="@+id/NtpDaylightTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="3dp"
+            android:fontFamily="@font/product_sans_regular"
+            android:text="@string/ntp_settings_daylight_title"
+            android:textColor="@color/gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/NtpDaylightDescriptionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/product_sans_regular"
+            android:text="@string/ntp_settings_daylight_description"
+            android:textColor="@color/lightest_gray" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
