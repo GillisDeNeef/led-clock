@@ -23,5 +23,7 @@ bool bluetooth::send(unsigned char* data, int length)
 // Receive data from android app
 bool bluetooth::receive(unsigned char* data, int &length)
 {
-  
+  if (bt.available()) {
+    Serial.print((char)bt.read());
+  }
 }

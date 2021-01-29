@@ -23,11 +23,9 @@ void setup()
   configuration.load();
   configuration.print();
 
-  bluetooth::begin("LED Clock");
-
   // Create RTOS tasks
   xTaskCreate(taskTime, "Time task", 8000, NULL, 2, &timehandle);
-  //xTaskCreate(taskBluetooth, "Bluetooth task", 8000, NULL, 1, &bthandle);
+  xTaskCreate(taskBluetooth, "Bluetooth task", 8000, NULL, 1, &bthandle);
 }
 
 /* Bluetooth task */
@@ -35,9 +33,14 @@ void taskBluetooth(void* parameter)
 {
   // Setup bluetooth
   bluetooth::begin("LED Clock");
+
+  // Variables
+  int bytes;
+  unsigned char temp[64];
   
   while (1) {
-    vTaskDelay(1000 / portTICK_PERIOD_MS);
+    bluetooth::receive(temp, bytes);
+    vTaskDelay(10 / portTICK_PERIOD_MS);
   }
 }
 
