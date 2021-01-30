@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
+import com.example.ledclock.settings.Settings;
+
 public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     /* Constants */
     public static final String EXTRA_DEVICE = "bluetooth_device";

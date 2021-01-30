@@ -3,7 +3,7 @@ package com.example.ledclock.settings;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Settings implements Parcelable {
+public class Settings {
     // Wifi settings
     private String mWifiSsid;
     private String mWifiPassword;
@@ -14,8 +14,8 @@ public class Settings implements Parcelable {
     private int mDaylight;
 
     // Location settings
-    private float mLongitude;
-    private float mLatitude;
+    private double mLongitude;
+    private double mLatitude;
 
     // Refresh rate setting
     private int mRefresh;
@@ -30,6 +30,18 @@ public class Settings implements Parcelable {
 
     // Constructor
     public Settings(){
+        mWifiSsid = "Telenet-ssid";
+        mWifiPassword = "Telenet-pwd";
+        mNtpServer = "pool.ntp.com";
+        mGmtOffset = 1;
+        mDaylight = 1;
+        mLongitude = 50.456;
+        mLatitude = 3.6546;
+        mRefresh = 1;
+        mColorHours = 0xFFFFFF;
+        mColorMinutes = 0xFFFFFF;
+        mBrightnessDay = 20;
+        mBrightnessNight = 10;
     }
 
     // Getters and setters
@@ -63,16 +75,16 @@ public class Settings implements Parcelable {
     public void setmDaylight(int mDaylight) {
         this.mDaylight = mDaylight;
     }
-    public float getmLongitude() {
+    public double getmLongitude() {
         return mLongitude;
     }
-    public void setmLongitude(float mLongitude) {
+    public void setmLongitude(double mLongitude) {
         this.mLongitude = mLongitude;
     }
-    public float getmLatitude() {
+    public double getmLatitude() {
         return mLatitude;
     }
-    public void setmLatitude(float mLatitude) {
+    public void setmLatitude(double mLatitude) {
         this.mLatitude = mLatitude;
     }
     public int getmRefresh() {
@@ -106,6 +118,10 @@ public class Settings implements Parcelable {
         this.mBrightnessNight = mBrightnessNight;
     }
 
+    private static final Settings holder = new Settings();
+    public static Settings getInstance() {return holder;}
+
+    /*
     // Parcelable part
     public Settings(Parcel in){
         this.mWifiSsid = in.readString();
@@ -113,8 +129,8 @@ public class Settings implements Parcelable {
         this.mNtpServer = in.readString();
         this.mGmtOffset = in.readInt();
         this.mDaylight = in.readInt();
-        this.mLongitude = in.readFloat();
-        this.mLatitude = in.readFloat();
+        this.mLongitude = in.readDouble();
+        this.mLatitude = in.readDouble();
         this.mRefresh = in.readInt();
         this.mColorHours = in.readInt();
         this.mColorMinutes = in.readInt();
@@ -129,8 +145,8 @@ public class Settings implements Parcelable {
         dest.writeString(this.mNtpServer);
         dest.writeInt(this.mGmtOffset);
         dest.writeInt(this.mDaylight);
-        dest.writeFloat(this.mLongitude);
-        dest.writeFloat(this.mLatitude);
+        dest.writeDouble(this.mLongitude);
+        dest.writeDouble(this.mLatitude);
         dest.writeInt(this.mRefresh);
         dest.writeInt(this.mColorHours);
         dest.writeInt(this.mColorMinutes);
@@ -151,4 +167,5 @@ public class Settings implements Parcelable {
             return new Settings[size];
         }
     };
+    */
 }

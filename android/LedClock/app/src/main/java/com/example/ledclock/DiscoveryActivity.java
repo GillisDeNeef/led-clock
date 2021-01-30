@@ -84,6 +84,9 @@ public class DiscoveryActivity extends AppCompatActivity {
                 startDiscovery();
             }
         });
+
+        Intent i = new Intent(DiscoveryActivity.this, SettingsActivity.class);
+        startActivity(i);
     }
 
     // Called right after starting next activity

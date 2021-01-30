@@ -19,9 +19,9 @@
 
     <string name="wifi_settings_title">Wifi credentials</string>
     <string name="wifi_settings_ssid_title">SSID</string>
-    <string name="wifi_settings_ssid_description">Telenet-9F219EB</string>
+    <string name="wifi_settings_ssid_description" />
     <string name="wifi_settings_password_title">Password</string>
-    <string name="wifi_settings_password_description">********</string>
+    <string name="wifi_settings_password_description" />
 
     <string name="ntp_settings_title">NTP server</string>
     <string name="ntp_settings_server_title">NTP server</string>
@@ -52,5 +52,10 @@
     <string name="brightness_settings_day_description">20</string>
     <string name="brightness_settings_night_title">Brightness night (%)</string>
     <string name="brightness_settings_night_description">5</string>
+
+    <string name="result_title">Edit field</string>
+    <string name="result_save">SAVE</string>
+    <string name="result_description" />
+    <string name="result_value" />
 
 </resources>
