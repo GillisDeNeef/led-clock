@@ -46,7 +46,7 @@ void Configuration::save()
 // Print out configuration 
 void Configuration::print()
 {
-  //Serial.println("- CONFIGURATION - ");
+  Serial.println("- CONFIGURATION - ");
   Serial.printf("configuration.wifi.ssid:                     \t %s \n", this->wifi.ssid);
   Serial.printf("configuration.wifi.password:                 \t %s \n", this->wifi.password);
   Serial.printf("configuration.time.ntp:                      \t %s \n", this->time.ntp);

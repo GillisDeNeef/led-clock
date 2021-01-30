@@ -42,6 +42,9 @@ namespace leds
     {1,1,1,1,1,1,1},
     {1,1,1,1,0,1,1},
   };
+
+  /* Red dot indication */
+  const int RED_DOT_HOURS_MSB_INDEX = 3;
   
   /* Initialization */
   void begin();
@@ -54,8 +57,11 @@ namespace leds
   void set_color_mins(long color);
 
   /* Display */
+  void clear();
   void set_error(int code);
-  void set_time(byte hours, byte minutes);
+  void set_time(int hours, int minutes);
+  void set_red_dot(bool state);
+  void set_hours_leading_zero(bool state);
   
   /* Led strip instances */
   extern CRGB hours_msb[LEDS_PER_DIGIT];
@@ -66,6 +72,10 @@ namespace leds
   /* Defined colors */
   extern CRGB hours_color;
   extern CRGB mins_color;
+
+  /* Red dot */
+  extern bool red_dot_enabled;
+  extern bool hours_leading_zero;
 };
 
 #endif

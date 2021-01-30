@@ -14,7 +14,7 @@ void taskBluetooth(void* parameter);
 
 /* Setup */
 void setup()
-{  
+{    
   // Open serial debug port at 115200 bps
   Serial.begin(115200);
   Serial.println();
@@ -23,17 +23,31 @@ void setup()
   configuration.load();
   configuration.print();
 
+  // Initialize LEDs
+  leds::begin();
+  leds::set_error(8888);
+  leds::set_color_hours(configuration.led.rgb_hours);
+  leds::set_color_mins(configuration.led.rgb_minutes);
+  leds::set_hours_leading_zero(false);
+  
+  // Initialize time tracking
+  datetime::begin_wifi(configuration.wifi.ssid, configuration.wifi.password);
+  datetime::begin_ntp(configuration.time.ntp, configuration.time.gmt_offset, configuration.time.daylight_offset);
+  datetime::update_sunset_sunrise();
+  if (datetime::is_day()) leds::set_brightness(configuration.led.brightness_day);
+  else leds::set_brightness(configuration.led.brightness_night);
+
+  // Setup bluetooth
+  bluetooth::begin("LED Clock");
+
   // Create RTOS tasks
-  xTaskCreate(taskTime, "Time task", 8000, NULL, 2, &timehandle);
-  xTaskCreate(taskBluetooth, "Bluetooth task", 8000, NULL, 1, &bthandle);
+  xTaskCreate(taskTime, "Time task", 4000, NULL, 2, &timehandle);
+  xTaskCreate(taskBluetooth, "Bluetooth task", 4000, NULL, 1, &bthandle);
 }
 
 /* Bluetooth task */
 void taskBluetooth(void* parameter)
 {
-  // Setup bluetooth
-  bluetooth::begin("LED Clock");
-
   // Variables
   int bytes;
   unsigned char temp[64];
@@ -47,24 +61,13 @@ void taskBluetooth(void* parameter)
 /* Time task */
 void taskTime(void* parameter)
 {
-  // Initialize LEDs
-  leds::begin();
-  leds::set_color_hours(configuration.led.rgb_hours);
-  leds::set_color_mins(configuration.led.rgb_minutes);
-  
-  // Initialize time tracking
-  datetime::begin_wifi(configuration.wifi.ssid, configuration.wifi.password);
-  datetime::begin_ntp(configuration.time.ntp, configuration.time.gmt_offset, configuration.time.daylight_offset);
-  datetime::update_sunset_sunrise();
-
   // Variables
   int hours = 0;
   int minutes = 0;
 
-  // Set initial brightness
-  if (datetime::is_day()) leds::set_brightness(configuration.led.brightness_day);
-  else leds::set_brightness(configuration.led.brightness_night);
-
+  // Turn all leds off
+  leds::clear();
+  
   // Loop
   while (1) {
     if(datetime::get_time(hours, minutes)){
@@ -77,7 +80,12 @@ void taskTime(void* parameter)
       else if (datetime::passed_sunset()) {
         leds::set_brightness(configuration.led.brightness_night);
       }
+      leds::set_red_dot(false);
       leds::set_time(hours, minutes);
+    }
+    else {
+      // let RTC handle time instead
+      leds::set_red_dot(true);
     }
     vTaskDelay(configuration.time.refresh_rate * 1000 / portTICK_PERIOD_MS);
   }
