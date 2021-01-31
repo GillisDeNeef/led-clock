@@ -1,5 +1,7 @@
 package com.example.ledclock;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,44 +11,42 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class ResultPasswordActivity extends AppCompatActivity {
+public class ResultDoubleActivity extends AppCompatActivity {
     /* Constants */
-    public static final String EXTRA_TITLE = "RESULT_PASSWORD_TITLE";
-    public static final String EXTRA_DESCRIPTION = "RESULT_PASSWORD_DESCRIPTION";
-    public static final String EXTRA_VALUE = "RESULT_PASSWORD_VALUE";
-    public static final String EXTRA_RESULT = "RESULT_PASSWORD_RESULT";
+    public static final String EXTRA_TITLE = "RESULT_DOUBLE_TITLE";
+    public static final String EXTRA_DESCRIPTION = "RESULT_DOUBLE_DESCRIPTION";
+    public static final String EXTRA_VALUE = "RESULT_DOUBLE_VALUE";
+    public static final String EXTRA_RESULT = "RESULT_DOUBLE_RESULT";
 
     /* Activity components */
     private ImageButton mCloseBtn;
     private Button mSaveBtn;
     private TextView mDescription;
-    private EditText mPassword;
+    private EditText mValue;
 
     // Called upon starting application
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result_password);
+        setContentView(R.layout.activity_result_double);
 
         // Fetch data from intent
         Intent intent = getIntent();
         String title = intent.getStringExtra(EXTRA_TITLE);
         String description = intent.getStringExtra(EXTRA_DESCRIPTION);
-        String value = intent.getStringExtra(EXTRA_VALUE);
+        double value = intent.getDoubleExtra(EXTRA_VALUE, 0);
 
         // Set description
-        mDescription = (TextView) findViewById(R.id.ResultPasswordDescriptionText);
+        mDescription = (TextView) findViewById(R.id.ResultFloatDescriptionText);
         mDescription.setText(description);
 
         // Set value
-        mPassword = (EditText) findViewById(R.id.ResultPasswordPassword);
-        mPassword.setHint(title);
-        mPassword.setText(value);
+        mValue = (EditText) findViewById(R.id.ResultFloatValueText);
+        mValue.setHint(title);
+        mValue.setText(String.valueOf(value));
 
         // Return canceled upon clicking close button
-        mCloseBtn = (ImageButton) findViewById(R.id.ResultPasswordCloseButton);
+        mCloseBtn = (ImageButton) findViewById(R.id.ResultFloatCloseButton);
         mCloseBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
@@ -58,20 +58,20 @@ public class ResultPasswordActivity extends AppCompatActivity {
         });
 
         // Return value upon clicking save button
-        mSaveBtn = (Button) findViewById(R.id.ResultPasswordSaveButton);
+        mSaveBtn = (Button) findViewById(R.id.ResultFloatSaveButton);
         mSaveBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra(EXTRA_RESULT, mPassword.getText().toString());
+                returnIntent.putExtra(EXTRA_RESULT, Double.parseDouble(mValue.getText().toString()));
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             }
         });
 
         // Move focus to edittext
-        mPassword.requestFocus();
-        mPassword.setCursorVisible(true);
+        mValue.requestFocus();
+        mValue.setCursorVisible(true);
     }
 }

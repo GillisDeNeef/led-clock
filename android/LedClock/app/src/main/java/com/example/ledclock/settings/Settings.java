@@ -33,11 +33,11 @@ public class Settings {
         mWifiSsid = "Telenet-ssid";
         mWifiPassword = "Telenet-pwd";
         mNtpServer = "pool.ntp.com";
-        mGmtOffset = 1;
-        mDaylight = 1;
+        mGmtOffset = 60;
+        mDaylight = 60;
         mLongitude = 50.456;
         mLatitude = 3.6546;
-        mRefresh = 1;
+        mRefresh = 1000;
         mColorHours = 0xFFFFFF;
         mColorMinutes = 0xFFFFFF;
         mBrightnessDay = 20;

@@ -69,8 +69,10 @@ public class SettingsWifiActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_PASSWORD);
             }
         });
+        StringBuilder temp = new StringBuilder();
+        for (int i = 0; i < Settings.getInstance().getmWifiPassword().length(); i++) temp.append("*");
         mPasswordValue = (TextView) findViewById(R.id.WifiPasswordDescriptionText);
-        mPasswordValue.setText(Settings.getInstance().getmWifiPassword());
+        mPasswordValue.setText(temp.toString());
     }
 
     @Override
@@ -86,8 +88,10 @@ public class SettingsWifiActivity extends AppCompatActivity {
         }
         else if (requestCode == REQUEST_PASSWORD) {
             String result = data.getStringExtra(ResultPasswordActivity.EXTRA_RESULT);
-            mPasswordValue.setText(result);
             Settings.getInstance().setmWifiPassword(result);
+            StringBuilder temp = new StringBuilder();
+            for (int i = 0; i < Settings.getInstance().getmWifiPassword().length(); i++) temp.append("*");
+            mPasswordValue.setText(temp.toString());
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

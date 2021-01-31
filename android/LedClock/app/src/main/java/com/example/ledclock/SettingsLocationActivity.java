@@ -2,16 +2,27 @@ package com.example.ledclock;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.example.ledclock.settings.Settings;
 
 public class SettingsLocationActivity extends AppCompatActivity {
+    /* Constants */
+    private static final int REQUEST_LONGITUDE = 1;
+    private static final int REQUEST_LATITUDE = 2;
+
     /* Activity components */
     private ImageButton mBackBtn;
     private LinearLayout mLongitude;
+    private TextView mLongitudeValue;
     private LinearLayout mLatitude;
+    private TextView mLatitudeValue;
 
     // Called upon starting application
     @Override
@@ -35,9 +46,15 @@ public class SettingsLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                // do something
+                Intent intent = new Intent(SettingsLocationActivity.this, ResultDoubleActivity.class);
+                intent.putExtra(ResultDoubleActivity.EXTRA_TITLE, "Longitude");
+                intent.putExtra(ResultDoubleActivity.EXTRA_DESCRIPTION, "Enter longitude of your current location (used to fetch sunrise and sunset times).");
+                intent.putExtra(ResultDoubleActivity.EXTRA_VALUE, Settings.getInstance().getmLongitude());
+                startActivityForResult(intent, REQUEST_LONGITUDE);
             }
         });
+        mLongitudeValue = (TextView) findViewById(R.id.LocationLongitudeDescriptionText);
+        mLongitudeValue.setText(String.valueOf(Settings.getInstance().getmLongitude()));
 
         // Set latitude upon clicking linearlayout
         mLatitude = (LinearLayout) findViewById(R.id.LocationLatitudeLayout);
@@ -45,8 +62,33 @@ public class SettingsLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                // do something
+                Intent intent = new Intent(SettingsLocationActivity.this, ResultDoubleActivity.class);
+                intent.putExtra(ResultDoubleActivity.EXTRA_TITLE, "Latitude");
+                intent.putExtra(ResultDoubleActivity.EXTRA_DESCRIPTION, "Enter latitude of your current location (used to fetch sunrise and sunset times).");
+                intent.putExtra(ResultDoubleActivity.EXTRA_VALUE, Settings.getInstance().getmLatitude());
+                startActivityForResult(intent, REQUEST_LATITUDE);
             }
         });
+        mLatitudeValue = (TextView) findViewById(R.id.LocationLatitudeDescriptionText);
+        mLatitudeValue.setText(String.valueOf(Settings.getInstance().getmLatitude()));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (resultCode == Activity.RESULT_CANCELED) {
+            // code to handle cancelled state
+        }
+        else if (requestCode == REQUEST_LONGITUDE) {
+            double result = data.getDoubleExtra(ResultDoubleActivity.EXTRA_RESULT, 0);
+            mLongitudeValue.setText(String.valueOf(result));
+            Settings.getInstance().setmLongitude(result);
+        }
+        else if (requestCode == REQUEST_LATITUDE) {
+            double result = data.getDoubleExtra(ResultDoubleActivity.EXTRA_RESULT, 0);
+            mLatitudeValue.setText(String.valueOf(result));
+            Settings.getInstance().setmLatitude(result);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

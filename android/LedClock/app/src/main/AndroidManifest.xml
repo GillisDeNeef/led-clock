@@ -14,8 +14,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LedClock">
-        <activity android:name=".ResultStringActivity" />
-        <activity android:name=".ResultPasswordActivity" />
+        <activity android:name=".ResultDoubleActivity"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".ResultIntActivity"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".ResultStringActivity"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".ResultPasswordActivity"
+            android:windowSoftInputMode="stateVisible" />
         <activity android:name=".SettingsBrightnessActivity" />
         <activity android:name=".SettingsColorsActivity" />
         <activity android:name=".SettingsRefreshActivity" />

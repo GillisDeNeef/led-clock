@@ -25,33 +25,33 @@
 
     <string name="ntp_settings_title">NTP server</string>
     <string name="ntp_settings_server_title">NTP server</string>
-    <string name="ntp_settings_server_description">pool.ntp.com</string>
+    <string name="ntp_settings_server_description" />
     <string name="ntp_settings_gmt_title">GMT offset (min)</string>
-    <string name="ntp_settings_gmt_description">60</string>
+    <string name="ntp_settings_gmt_description" />
     <string name="ntp_settings_daylight_title">Daylight saving time (min)</string>
-    <string name="ntp_settings_daylight_description">60</string>
+    <string name="ntp_settings_daylight_description" />
 
     <string name="location_settings_title">Geolocation</string>
     <string name="location_settings_longitude_title">Longitude</string>
-    <string name="location_settings_longitude_description">50.99738942954772</string>
+    <string name="location_settings_longitude_description" />
     <string name="location_settings_latitude_title">Latitude</string>
-    <string name="location_settings_latitude_description">3.859491100565309</string>
+    <string name="location_settings_latitude_description" />
 
     <string name="refresh_settings_title">Refresh rate</string>
     <string name="refresh_settings_rate_title">Refresh rate (ms)</string>
-    <string name="refresh_settings_rate_description">1000</string>
+    <string name="refresh_settings_rate_description" />
 
     <string name="colors_settings_title">Colors</string>
     <string name="colors_settings_hours_title">Hours color (hex)</string>
-    <string name="colors_settings_hours_description">0xFFFFFF</string>
+    <string name="colors_settings_hours_description" />
     <string name="colors_settings_minutes_title">Minutes color (hex)</string>
-    <string name="colors_settings_minutes_description">0xFFFFFF</string>
+    <string name="colors_settings_minutes_description" />
 
     <string name="brightness_settings_title">Brightness</string>
     <string name="brightness_settings_day_title">Brightness day (%)</string>
-    <string name="brightness_settings_day_description">20</string>
+    <string name="brightness_settings_day_description" />
     <string name="brightness_settings_night_title">Brightness night (%)</string>
-    <string name="brightness_settings_night_description">5</string>
+    <string name="brightness_settings_night_description" />
 
     <string name="result_title">Edit field</string>
     <string name="result_save">SAVE</string>

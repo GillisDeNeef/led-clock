@@ -2,15 +2,24 @@ package com.example.ledclock;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.example.ledclock.settings.Settings;
 
 public class SettingsRefreshActivity extends AppCompatActivity {
+    /* Constants */
+    private static final int REQUEST_REFRESH = 1;
+
     /* Activity components */
     private ImageButton mBackBtn;
     private LinearLayout mRate;
+    private TextView mRateValue;
 
     // Called upon starting application
     @Override
@@ -34,8 +43,28 @@ public class SettingsRefreshActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                // do something
+                Intent intent = new Intent(SettingsRefreshActivity.this, ResultIntActivity.class);
+                intent.putExtra(ResultIntActivity.EXTRA_TITLE, "Refresh rate");
+                intent.putExtra(ResultIntActivity.EXTRA_DESCRIPTION, "Enter refresh rate for time display (in ms).");
+                intent.putExtra(ResultIntActivity.EXTRA_VALUE, Settings.getInstance().getmRefresh());
+                startActivityForResult(intent, REQUEST_REFRESH);
             }
         });
+        mRateValue = (TextView) findViewById(R.id.RefreshRateDescriptionText);
+        mRateValue.setText(String.valueOf(Settings.getInstance().getmRefresh()));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (resultCode == Activity.RESULT_CANCELED) {
+            // code to handle cancelled state
+        }
+        else if (requestCode == REQUEST_REFRESH) {
+            int result = data.getIntExtra(ResultIntActivity.EXTRA_RESULT, 0);
+            mRateValue.setText(String.valueOf(result));
+            Settings.getInstance().setmRefresh(result);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
