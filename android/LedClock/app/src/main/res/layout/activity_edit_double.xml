@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ResultDoubleActivity">
+    tools:context=".EditDoubleActivity">
 
     <ImageButton
         android:id="@+id/ResultFloatCloseButton"
@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp"
         android:background="@android:color/transparent"
         android:contentDescription="@null"
         android:tint="@color/gray"
@@ -54,13 +56,15 @@
 
     <TextView
         android:id="@+id/ResultFloatDescriptionText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="35dp"
+        android:layout_marginEnd="20dp"
         android:fontFamily="@font/product_sans_regular"
         android:text="@string/result_description"
         android:textColor="@color/lightest_gray"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ResultFloatTitleText" />
 
@@ -69,7 +73,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="20dp"
         android:autofillHints=""
         android:ems="10"

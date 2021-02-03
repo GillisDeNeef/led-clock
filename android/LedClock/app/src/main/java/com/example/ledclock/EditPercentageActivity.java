@@ -7,46 +7,45 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class ResultDoubleActivity extends AppCompatActivity {
+public class EditPercentageActivity extends AppCompatActivity {
     /* Constants */
-    public static final String EXTRA_TITLE = "RESULT_DOUBLE_TITLE";
-    public static final String EXTRA_DESCRIPTION = "RESULT_DOUBLE_DESCRIPTION";
-    public static final String EXTRA_VALUE = "RESULT_DOUBLE_VALUE";
-    public static final String EXTRA_RESULT = "RESULT_DOUBLE_RESULT";
+    public static final String EXTRA_TITLE = "RESULT_PERCENTAGE_TITLE";
+    public static final String EXTRA_DESCRIPTION = "RESULT_PERCENTAGE_DESCRIPTION";
+    public static final String EXTRA_VALUE = "RESULT_PERCENTAGE_VALUE";
+    public static final String EXTRA_RESULT = "RESULT_PERCENTAGE_RESULT";
 
     /* Activity components */
     private ImageButton mCloseBtn;
     private Button mSaveBtn;
     private TextView mDescription;
-    private EditText mValue;
+    private SeekBar mValue;
 
     // Called upon starting application
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result_double);
+        setContentView(R.layout.activity_edit_percentage);
 
         // Fetch data from intent
         Intent intent = getIntent();
         String title = intent.getStringExtra(EXTRA_TITLE);
         String description = intent.getStringExtra(EXTRA_DESCRIPTION);
-        double value = intent.getDoubleExtra(EXTRA_VALUE, 0);
+        int value = intent.getIntExtra(EXTRA_VALUE, 0);
 
         // Set description
-        mDescription = (TextView) findViewById(R.id.ResultFloatDescriptionText);
+        mDescription = (TextView) findViewById(R.id.ResultPercentageDescriptionText);
         mDescription.setText(description);
 
         // Set value
-        mValue = (EditText) findViewById(R.id.ResultFloatValueText);
-        mValue.setHint(title);
-        mValue.setText(String.valueOf(value));
+        mValue = (SeekBar) findViewById(R.id.ResultPercentageValueSeekBar);
+        mValue.setProgress(value);
 
         // Return canceled upon clicking close button
-        mCloseBtn = (ImageButton) findViewById(R.id.ResultFloatCloseButton);
+        mCloseBtn = (ImageButton) findViewById(R.id.ResultPercentageCloseButton);
         mCloseBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
@@ -58,20 +57,16 @@ public class ResultDoubleActivity extends AppCompatActivity {
         });
 
         // Return value upon clicking save button
-        mSaveBtn = (Button) findViewById(R.id.ResultFloatSaveButton);
+        mSaveBtn = (Button) findViewById(R.id.ResultPercentageSaveButton);
         mSaveBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra(EXTRA_RESULT, Double.parseDouble(mValue.getText().toString()));
+                returnIntent.putExtra(EXTRA_RESULT, mValue.getProgress());
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             }
         });
-
-        // Move focus to edittext
-        mValue.requestFocus();
-        mValue.setCursorVisible(true);
     }
 }

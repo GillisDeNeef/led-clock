@@ -46,10 +46,10 @@ public class SettingsLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(SettingsLocationActivity.this, ResultDoubleActivity.class);
-                intent.putExtra(ResultDoubleActivity.EXTRA_TITLE, "Longitude");
-                intent.putExtra(ResultDoubleActivity.EXTRA_DESCRIPTION, "Enter longitude of your current location (used to fetch sunrise and sunset times).");
-                intent.putExtra(ResultDoubleActivity.EXTRA_VALUE, Settings.getInstance().getmLongitude());
+                Intent intent = new Intent(SettingsLocationActivity.this, EditDoubleActivity.class);
+                intent.putExtra(EditDoubleActivity.EXTRA_TITLE, "Longitude");
+                intent.putExtra(EditDoubleActivity.EXTRA_DESCRIPTION, "Enter longitude of your current location (used to fetch sunrise and sunset times).");
+                intent.putExtra(EditDoubleActivity.EXTRA_VALUE, Settings.getInstance().getmLongitude());
                 startActivityForResult(intent, REQUEST_LONGITUDE);
             }
         });
@@ -62,10 +62,10 @@ public class SettingsLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(SettingsLocationActivity.this, ResultDoubleActivity.class);
-                intent.putExtra(ResultDoubleActivity.EXTRA_TITLE, "Latitude");
-                intent.putExtra(ResultDoubleActivity.EXTRA_DESCRIPTION, "Enter latitude of your current location (used to fetch sunrise and sunset times).");
-                intent.putExtra(ResultDoubleActivity.EXTRA_VALUE, Settings.getInstance().getmLatitude());
+                Intent intent = new Intent(SettingsLocationActivity.this, EditDoubleActivity.class);
+                intent.putExtra(EditDoubleActivity.EXTRA_TITLE, "Latitude");
+                intent.putExtra(EditDoubleActivity.EXTRA_DESCRIPTION, "Enter latitude of your current location (used to fetch sunrise and sunset times).");
+                intent.putExtra(EditDoubleActivity.EXTRA_VALUE, Settings.getInstance().getmLatitude());
                 startActivityForResult(intent, REQUEST_LATITUDE);
             }
         });
@@ -80,12 +80,12 @@ public class SettingsLocationActivity extends AppCompatActivity {
             // code to handle cancelled state
         }
         else if (requestCode == REQUEST_LONGITUDE) {
-            double result = data.getDoubleExtra(ResultDoubleActivity.EXTRA_RESULT, 0);
+            double result = data.getDoubleExtra(EditDoubleActivity.EXTRA_RESULT, 0);
             mLongitudeValue.setText(String.valueOf(result));
             Settings.getInstance().setmLongitude(result);
         }
         else if (requestCode == REQUEST_LATITUDE) {
-            double result = data.getDoubleExtra(ResultDoubleActivity.EXTRA_RESULT, 0);
+            double result = data.getDoubleExtra(EditDoubleActivity.EXTRA_RESULT, 0);
             mLatitudeValue.setText(String.valueOf(result));
             Settings.getInstance().setmLatitude(result);
         }

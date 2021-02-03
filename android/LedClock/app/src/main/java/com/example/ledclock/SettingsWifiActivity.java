@@ -46,10 +46,10 @@ public class SettingsWifiActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(SettingsWifiActivity.this, ResultStringActivity.class);
-                intent.putExtra(ResultStringActivity.EXTRA_TITLE, "SSID");
-                intent.putExtra(ResultStringActivity.EXTRA_DESCRIPTION, "Enter name of wifi network.");
-                intent.putExtra(ResultStringActivity.EXTRA_VALUE, Settings.getInstance().getmWifiSsid());
+                Intent intent = new Intent(SettingsWifiActivity.this, EditStringActivity.class);
+                intent.putExtra(EditStringActivity.EXTRA_TITLE, "SSID");
+                intent.putExtra(EditStringActivity.EXTRA_DESCRIPTION, "Enter name of wifi network.");
+                intent.putExtra(EditStringActivity.EXTRA_VALUE, Settings.getInstance().getmWifiSsid());
                 startActivityForResult(intent, REQUEST_SSID);
             }
         });
@@ -62,10 +62,10 @@ public class SettingsWifiActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(SettingsWifiActivity.this, ResultPasswordActivity.class);
-                intent.putExtra(ResultPasswordActivity.EXTRA_TITLE, "Password");
-                intent.putExtra(ResultPasswordActivity.EXTRA_DESCRIPTION, "Enter password of wifi network.");
-                intent.putExtra(ResultPasswordActivity.EXTRA_VALUE, Settings.getInstance().getmWifiPassword());
+                Intent intent = new Intent(SettingsWifiActivity.this, EditPasswordActivity.class);
+                intent.putExtra(EditPasswordActivity.EXTRA_TITLE, "Password");
+                intent.putExtra(EditPasswordActivity.EXTRA_DESCRIPTION, "Enter password of wifi network.");
+                intent.putExtra(EditPasswordActivity.EXTRA_VALUE, Settings.getInstance().getmWifiPassword());
                 startActivityForResult(intent, REQUEST_PASSWORD);
             }
         });
@@ -82,12 +82,12 @@ public class SettingsWifiActivity extends AppCompatActivity {
             // code to handle cancelled state
         }
         else if (requestCode == REQUEST_SSID) {
-            String result = data.getStringExtra(ResultStringActivity.EXTRA_RESULT);
+            String result = data.getStringExtra(EditStringActivity.EXTRA_RESULT);
             mSsidValue.setText(result);
             Settings.getInstance().setmWifiSsid(result);
         }
         else if (requestCode == REQUEST_PASSWORD) {
-            String result = data.getStringExtra(ResultPasswordActivity.EXTRA_RESULT);
+            String result = data.getStringExtra(EditPasswordActivity.EXTRA_RESULT);
             Settings.getInstance().setmWifiPassword(result);
             StringBuilder temp = new StringBuilder();
             for (int i = 0; i < Settings.getInstance().getmWifiPassword().length(); i++) temp.append("*");

@@ -14,6 +14,8 @@
         android:layout_marginTop="20dp"
         android:background="@android:color/transparent"
         android:contentDescription="@null"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp"
         android:tint="@color/gray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

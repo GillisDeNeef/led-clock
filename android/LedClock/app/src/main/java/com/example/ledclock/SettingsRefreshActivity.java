@@ -43,10 +43,10 @@ public class SettingsRefreshActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(SettingsRefreshActivity.this, ResultIntActivity.class);
-                intent.putExtra(ResultIntActivity.EXTRA_TITLE, "Refresh rate");
-                intent.putExtra(ResultIntActivity.EXTRA_DESCRIPTION, "Enter refresh rate for time display (in ms).");
-                intent.putExtra(ResultIntActivity.EXTRA_VALUE, Settings.getInstance().getmRefresh());
+                Intent intent = new Intent(SettingsRefreshActivity.this, EditIntActivity.class);
+                intent.putExtra(EditIntActivity.EXTRA_TITLE, "Refresh rate");
+                intent.putExtra(EditIntActivity.EXTRA_DESCRIPTION, "Enter refresh rate for time display (in ms).");
+                intent.putExtra(EditIntActivity.EXTRA_VALUE, Settings.getInstance().getmRefresh());
                 startActivityForResult(intent, REQUEST_REFRESH);
             }
         });
@@ -61,7 +61,7 @@ public class SettingsRefreshActivity extends AppCompatActivity {
             // code to handle cancelled state
         }
         else if (requestCode == REQUEST_REFRESH) {
-            int result = data.getIntExtra(ResultIntActivity.EXTRA_RESULT, 0);
+            int result = data.getIntExtra(EditIntActivity.EXTRA_RESULT, 0);
             mRateValue.setText(String.valueOf(result));
             Settings.getInstance().setmRefresh(result);
         }

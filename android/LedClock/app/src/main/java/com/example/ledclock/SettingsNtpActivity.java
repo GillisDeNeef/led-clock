@@ -49,10 +49,10 @@ public class SettingsNtpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(SettingsNtpActivity.this, ResultStringActivity.class);
-                intent.putExtra(ResultStringActivity.EXTRA_TITLE, "NTP");
-                intent.putExtra(ResultStringActivity.EXTRA_DESCRIPTION, "Enter url of ntp server.");
-                intent.putExtra(ResultStringActivity.EXTRA_VALUE, Settings.getInstance().getmNtpServer());
+                Intent intent = new Intent(SettingsNtpActivity.this, EditStringActivity.class);
+                intent.putExtra(EditStringActivity.EXTRA_TITLE, "NTP");
+                intent.putExtra(EditStringActivity.EXTRA_DESCRIPTION, "Enter url of ntp server.");
+                intent.putExtra(EditStringActivity.EXTRA_VALUE, Settings.getInstance().getmNtpServer());
                 startActivityForResult(intent, REQUEST_NTP);
             }
         });
@@ -65,10 +65,10 @@ public class SettingsNtpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(SettingsNtpActivity.this, ResultIntActivity.class);
-                intent.putExtra(ResultIntActivity.EXTRA_TITLE, "GMT");
-                intent.putExtra(ResultIntActivity.EXTRA_DESCRIPTION, "Enter gmt offset for your location (minutes).");
-                intent.putExtra(ResultIntActivity.EXTRA_VALUE, Settings.getInstance().getmGmtOffset());
+                Intent intent = new Intent(SettingsNtpActivity.this, EditIntActivity.class);
+                intent.putExtra(EditIntActivity.EXTRA_TITLE, "GMT");
+                intent.putExtra(EditIntActivity.EXTRA_DESCRIPTION, "Enter gmt offset for your location (minutes).");
+                intent.putExtra(EditIntActivity.EXTRA_VALUE, Settings.getInstance().getmGmtOffset());
                 startActivityForResult(intent, REQUEST_GMT);
             }
         });
@@ -81,10 +81,10 @@ public class SettingsNtpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(SettingsNtpActivity.this, ResultIntActivity.class);
-                intent.putExtra(ResultIntActivity.EXTRA_TITLE, "Daylight");
-                intent.putExtra(ResultIntActivity.EXTRA_DESCRIPTION, "Enter daylight saving time for your location (minutes).");
-                intent.putExtra(ResultIntActivity.EXTRA_VALUE, Settings.getInstance().getmDaylight());
+                Intent intent = new Intent(SettingsNtpActivity.this, EditIntActivity.class);
+                intent.putExtra(EditIntActivity.EXTRA_TITLE, "Daylight");
+                intent.putExtra(EditIntActivity.EXTRA_DESCRIPTION, "Enter daylight saving time for your location (minutes).");
+                intent.putExtra(EditIntActivity.EXTRA_VALUE, Settings.getInstance().getmDaylight());
                 startActivityForResult(intent, REQUEST_DAYLIGHT);
             }
         });
@@ -99,17 +99,17 @@ public class SettingsNtpActivity extends AppCompatActivity {
             // code to handle cancelled state
         }
         else if (requestCode == REQUEST_NTP) {
-            String result = data.getStringExtra(ResultStringActivity.EXTRA_RESULT);
+            String result = data.getStringExtra(EditStringActivity.EXTRA_RESULT);
             mNtpValue.setText(result);
             Settings.getInstance().setmNtpServer(result);
         }
         else if (requestCode == REQUEST_GMT) {
-            int result = data.getIntExtra(ResultIntActivity.EXTRA_RESULT, 0);
+            int result = data.getIntExtra(EditIntActivity.EXTRA_RESULT, 0);
             mGmtValue.setText(String.valueOf(result));
             Settings.getInstance().setmGmtOffset(result);
         }
         else if (requestCode == REQUEST_DAYLIGHT) {
-            int result = data.getIntExtra(ResultIntActivity.EXTRA_RESULT, 0);
+            int result = data.getIntExtra(EditIntActivity.EXTRA_RESULT, 0);
             mDaylightValue.setText(String.valueOf(result));
             Settings.getInstance().setmDaylight(result);
         }

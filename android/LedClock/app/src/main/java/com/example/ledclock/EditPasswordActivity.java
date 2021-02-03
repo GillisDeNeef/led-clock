@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ResultPasswordActivity extends AppCompatActivity {
+public class EditPasswordActivity extends AppCompatActivity {
     /* Constants */
     public static final String EXTRA_TITLE = "RESULT_PASSWORD_TITLE";
     public static final String EXTRA_DESCRIPTION = "RESULT_PASSWORD_DESCRIPTION";
@@ -28,7 +28,7 @@ public class ResultPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result_password);
+        setContentView(R.layout.activity_edit_password);
 
         // Fetch data from intent
         Intent intent = getIntent();

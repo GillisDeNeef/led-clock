@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ResultIntActivity">
+    tools:context=".EditStringActivity">
 
     <ImageButton
-        android:id="@+id/ResultIntCloseButton"
+        android:id="@+id/ResultStringCloseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp"
         android:background="@android:color/transparent"
         android:contentDescription="@null"
         android:tint="@color/gray"
@@ -20,7 +22,7 @@
         app:srcCompat="@drawable/close_24px" />
 
     <TextView
-        android:id="@+id/ResultIntTitleText"
+        android:id="@+id/ResultStringTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="75dp"
@@ -33,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/ResultIntSaveButton"
+        android:id="@+id/ResultStringSaveButton"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,32 +55,34 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/ResultIntDescriptionText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="35dp"
-        android:fontFamily="@font/product_sans_regular"
-        android:text="@string/result_description"
-        android:textColor="@color/lightest_gray"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ResultIntTitleText" />
-
-    <EditText
-        android:id="@+id/ResultIntValueText"
+        android:id="@+id/ResultStringDescriptionText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/product_sans_regular"
+        android:text="@string/result_description"
+        android:textColor="@color/lightest_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ResultStringTitleText" />
+
+    <EditText
+        android:id="@+id/ResultStringValueText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="20dp"
         android:autofillHints=""
         android:ems="10"
         android:fontFamily="@font/product_sans_regular"
         android:hint="@string/result_value"
-        android:inputType="numberSigned"
+        android:inputType="textPersonName"
         android:text="@string/result_value"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ResultIntDescriptionText" />
+        app:layout_constraintTop_toBottomOf="@+id/ResultStringDescriptionText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

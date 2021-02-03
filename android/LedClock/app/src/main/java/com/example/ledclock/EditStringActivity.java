@@ -3,17 +3,15 @@ package com.example.ledclock;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class ResultStringActivity extends AppCompatActivity {
+public class EditStringActivity extends AppCompatActivity {
     /* Constants */
     public static final String EXTRA_TITLE = "RESULT_STRING_TITLE";
     public static final String EXTRA_DESCRIPTION = "RESULT_STRING_DESCRIPTION";
@@ -30,7 +28,7 @@ public class ResultStringActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result_string);
+        setContentView(R.layout.activity_edit_string);
 
         // Fetch data from intent
         Intent intent = getIntent();

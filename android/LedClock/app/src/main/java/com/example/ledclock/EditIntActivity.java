@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class ResultIntActivity extends AppCompatActivity {
+public class EditIntActivity extends AppCompatActivity {
     /* Constants */
     public static final String EXTRA_TITLE = "RESULT_INT_TITLE";
     public static final String EXTRA_DESCRIPTION = "RESULT_INT_DESCRIPTION";
@@ -28,7 +28,7 @@ public class ResultIntActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result_int);
+        setContentView(R.layout.activity_edit_int);
 
         // Fetch data from intent
         Intent intent = getIntent();
