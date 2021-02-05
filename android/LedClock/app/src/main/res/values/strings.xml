@@ -4,6 +4,8 @@
     <string name="main_starting">Starting bluetooth adapter</string>
     <string name="main_start_discovery">Searching bluetooth devices</string>
     <string name="main_stop_discover">Press icon to start searching</string>
+    <string name="main_connecting">Connecting to LED Clock</string>
+    <string name="main_fetch_settings">Fetching current settings</string>
 
     <string name="settings_title">LED Clock settings</string>
     <string name="settings_option_disconnect">Disconnect</string>

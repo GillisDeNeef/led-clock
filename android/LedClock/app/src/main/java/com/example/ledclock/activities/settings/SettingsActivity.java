@@ -1,4 +1,4 @@
-package com.example.ledclock;
+package com.example.ledclock.activities.settings;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
-import com.example.ledclock.settings.Settings;
+import com.example.ledclock.R;
 
 public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     /* Constants */

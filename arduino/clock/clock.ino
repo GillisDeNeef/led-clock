@@ -53,6 +53,7 @@ void taskBluetooth(void* parameter)
   unsigned char temp[64];
   
   while (1) {
+    bluetooth::send(temp, bytes);
     bluetooth::receive(temp, bytes);
     vTaskDelay(10 / portTICK_PERIOD_MS);
   }

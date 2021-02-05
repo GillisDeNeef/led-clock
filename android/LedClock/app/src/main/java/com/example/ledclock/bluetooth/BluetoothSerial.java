@@ -5,12 +5,18 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 
+import androidx.core.content.res.TypedArrayUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.CopyOnWriteArraySet;
 
-public class BluetoothDataService {
+public class BluetoothSerial {
     // Constants
     private static final UUID BT_MODULE_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
@@ -23,22 +29,22 @@ public class BluetoothDataService {
     private CommunicationThread mCommunicationThread;
     private boolean mStopThread;
 
-    // Constructor
-    public BluetoothDataService(Handler handler)
+    // Thread complete listeren
+    private ThreadCompleteListener mListener = null;
+
+    // Open connection
+    public void openConnection(String address, Handler handler, ThreadCompleteListener connected)
     {
         mStopThread = false;
         mReceiveHandler = handler;
-    }
-
-    // Open connection
-    public void openConnection(String address)
-    {
+        mListener = connected;
         BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
         if (adapter != null && adapter.isEnabled()) {
             try {
                 BluetoothDevice device = adapter.getRemoteDevice(address);
                 mConnectionThread = new ConnectionThread(device);
                 mConnectionThread.start();
+
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
@@ -59,7 +65,7 @@ public class BluetoothDataService {
     }
 
     // Transmit data
-    public void transmitData(String data)
+    public void write(String data)
     {
         mCommunicationThread.write(data);
     }
@@ -87,7 +93,8 @@ public class BluetoothDataService {
                 mmSocket.connect();
                 mCommunicationThread = new CommunicationThread(mmSocket);
                 mCommunicationThread.start();
-                mCommunicationThread.write("x"); // Check if communication is working
+                //mCommunicationThread.write("x"); // Check if communication is working
+                mListener.notifyOfThreadComplete();
             } catch (IOException e) {
                 try {
                     mmSocket.close();
@@ -110,6 +117,9 @@ public class BluetoothDataService {
 
     // Thread handles communication with bluetooth device
     private class CommunicationThread extends Thread {
+        private static final byte START = 0x2A;
+        private static final byte STOP = 0x0D;
+
         private final InputStream mmInStream;
         private final OutputStream mmOutStream;
 
@@ -128,13 +138,39 @@ public class BluetoothDataService {
 
         public void run() {
             byte[] buffer = new byte[256];
-            int bytes;
+            int bytes = 0;
+            int start = -1;
+            int stop = -1;
 
             while (!mStopThread) {
                 try {
-                    bytes = mmInStream.read(buffer);
-                    String readMessage = new String(buffer, 0, bytes);
-                    mReceiveHandler.obtainMessage(mHandlerState, bytes, -1, readMessage).sendToTarget(); // Send the obtained bytes to the UI Activity via handler
+                    bytes += mmInStream.read(buffer, bytes, 256 - bytes);
+                    if (bytes > 0) {
+                        start = (new String(buffer, StandardCharsets.UTF_8)).indexOf(START);
+                        if (start >= 0) {
+                            stop = (new String(buffer, StandardCharsets.UTF_8)).indexOf(STOP);
+                            while (stop < 0) {
+                                bytes += mmInStream.read(buffer, bytes, 256 - bytes);
+                                stop = (new String(buffer, StandardCharsets.UTF_8)).indexOf(STOP);
+                            }
+                            String readMessage = new String(buffer, start + 1, stop - start - 1);
+                            mReceiveHandler.obtainMessage(mHandlerState, -1, -1, readMessage).sendToTarget();
+
+                            bytes -= (stop - start + 1);
+                            if (bytes > 0) {
+                                byte[] temp = Arrays.copyOfRange(buffer, stop + 1, stop + 1 + bytes);
+                                Arrays.fill(buffer, (byte)0);
+                                System.arraycopy(temp, 0, buffer, 0, bytes);
+                            }
+                            else {
+                                Arrays.fill(buffer, (byte)0);
+                                bytes = 0;
+                            }
+                        }
+                        else {
+                            bytes = 0;
+                        }
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                     break;
@@ -143,7 +179,10 @@ public class BluetoothDataService {
         }
 
         public void write(String input) {
-            byte[] msgBuffer = input.getBytes();
+            byte[] msgBuffer = new byte[input.length() + 2];
+            msgBuffer[0] = START;
+            System.arraycopy(input.getBytes(), 0, msgBuffer, 1, input.length());
+            msgBuffer[msgBuffer.length-1] = STOP;
             try {
                 mmOutStream.write(msgBuffer);
             } catch (IOException e) {

@@ -1,4 +1,4 @@
-package com.example.ledclock;
+package com.example.ledclock.activities.settings;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,10 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.ledclock.activities.edit.EditIntActivity;
+import com.example.ledclock.activities.edit.EditStringActivity;
+import com.example.ledclock.R;
+import com.example.ledclock.bluetooth.Commands;
 import com.example.ledclock.settings.Settings;
 
 public class SettingsNtpActivity extends AppCompatActivity {
@@ -102,16 +106,19 @@ public class SettingsNtpActivity extends AppCompatActivity {
             String result = data.getStringExtra(EditStringActivity.EXTRA_RESULT);
             mNtpValue.setText(result);
             Settings.getInstance().setmNtpServer(result);
+            Commands.setNtpServer(result);
         }
         else if (requestCode == REQUEST_GMT) {
             int result = data.getIntExtra(EditIntActivity.EXTRA_RESULT, 0);
             mGmtValue.setText(String.valueOf(result));
             Settings.getInstance().setmGmtOffset(result);
+            Commands.setGmtOffset(result);
         }
         else if (requestCode == REQUEST_DAYLIGHT) {
             int result = data.getIntExtra(EditIntActivity.EXTRA_RESULT, 0);
             mDaylightValue.setText(String.valueOf(result));
             Settings.getInstance().setmDaylight(result);
+            Commands.setDaylightTime(result);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

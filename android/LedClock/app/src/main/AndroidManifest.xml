@@ -14,34 +14,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LedClock">
-        <activity android:name=".EditColorActivity"></activity>
-        <activity android:name=".EditPercentageActivity" />
+        <activity android:name=".activities.edit.EditColorActivity"></activity>
+        <activity android:name=".activities.edit.EditPercentageActivity" />
         <activity
-            android:name=".EditDoubleActivity"
+            android:name=".activities.edit.EditDoubleActivity"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".EditIntActivity"
+            android:name=".activities.edit.EditIntActivity"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".EditStringActivity"
+            android:name=".activities.edit.EditStringActivity"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".EditPasswordActivity"
+            android:name=".activities.edit.EditPasswordActivity"
             android:windowSoftInputMode="stateVisible" />
-        <activity android:name=".SettingsBrightnessActivity" />
-        <activity android:name=".SettingsColorsActivity" />
-        <activity android:name=".SettingsRefreshActivity" />
-        <activity android:name=".SettingsLocationActivity" />
-        <activity android:name=".SettingsNtpActivity" />
-        <activity android:name=".SettingsWifiActivity" />
-        <activity android:name=".DiscoveryActivity">
+        <activity android:name=".activities.settings.SettingsBrightnessActivity" />
+        <activity android:name=".activities.settings.SettingsColorsActivity" />
+        <activity android:name=".activities.settings.SettingsRefreshActivity" />
+        <activity android:name=".activities.settings.SettingsLocationActivity" />
+        <activity android:name=".activities.settings.SettingsNtpActivity" />
+        <activity android:name=".activities.settings.SettingsWifiActivity" />
+        <activity android:name=".activities.DiscoveryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingsActivity" />
+        <activity android:name=".activities.settings.SettingsActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

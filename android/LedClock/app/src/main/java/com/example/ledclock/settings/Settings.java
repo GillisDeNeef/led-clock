@@ -5,44 +5,31 @@ import android.os.Parcelable;
 
 public class Settings {
     // Wifi settings
-    private String mWifiSsid;
-    private String mWifiPassword;
+    private String mWifiSsid = "";
+    private String mWifiPassword = "";
 
     // Ntp settings
-    private String mNtpServer;
-    private int mGmtOffset;
-    private int mDaylight;
+    private String mNtpServer = "";
+    private int mGmtOffset = 0;
+    private int mDaylight = 0;
 
     // Location settings
-    private double mLongitude;
-    private double mLatitude;
+    private double mLongitude = 0;
+    private double mLatitude = 0;
 
     // Refresh rate setting
-    private int mRefresh;
+    private int mRefresh = 0;
 
     // Color settings
-    private int mColorHours;
-    private int mColorMinutes;
+    private int mColorHours = 0;
+    private int mColorMinutes = 0;
 
     // Brightness settings
-    private int mBrightnessDay;
-    private int mBrightnessNight;
+    private int mBrightnessDay = 0;
+    private int mBrightnessNight = 0;
 
     // Constructor
-    public Settings(){
-        mWifiSsid = "Telenet-ssid";
-        mWifiPassword = "Telenet-pwd";
-        mNtpServer = "pool.ntp.com";
-        mGmtOffset = 60;
-        mDaylight = 60;
-        mLongitude = 50.456;
-        mLatitude = 3.6546;
-        mRefresh = 1000;
-        mColorHours = 0xFFFFFF;
-        mColorMinutes = 0xFFFFFF;
-        mBrightnessDay = 20;
-        mBrightnessNight = 10;
-    }
+    public Settings(){ }
 
     // Getters and setters
     public String getmWifiSsid() {
@@ -120,52 +107,4 @@ public class Settings {
 
     private static final Settings holder = new Settings();
     public static Settings getInstance() {return holder;}
-
-    /*
-    // Parcelable part
-    public Settings(Parcel in){
-        this.mWifiSsid = in.readString();
-        this.mWifiPassword = in.readString();
-        this.mNtpServer = in.readString();
-        this.mGmtOffset = in.readInt();
-        this.mDaylight = in.readInt();
-        this.mLongitude = in.readDouble();
-        this.mLatitude = in.readDouble();
-        this.mRefresh = in.readInt();
-        this.mColorHours = in.readInt();
-        this.mColorMinutes = in.readInt();
-        this.mBrightnessDay = in.readInt();
-        this.mBrightnessNight = in.readInt();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.mWifiSsid);
-        dest.writeString(this.mWifiPassword);
-        dest.writeString(this.mNtpServer);
-        dest.writeInt(this.mGmtOffset);
-        dest.writeInt(this.mDaylight);
-        dest.writeDouble(this.mLongitude);
-        dest.writeDouble(this.mLatitude);
-        dest.writeInt(this.mRefresh);
-        dest.writeInt(this.mColorHours);
-        dest.writeInt(this.mColorMinutes);
-        dest.writeInt(this.mBrightnessDay);
-        dest.writeInt(this.mBrightnessNight);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
-        public Settings createFromParcel(Parcel in) {
-            return new Settings(in);
-        }
-        public Settings[] newArray(int size) {
-            return new Settings[size];
-        }
-    };
-    */
 }

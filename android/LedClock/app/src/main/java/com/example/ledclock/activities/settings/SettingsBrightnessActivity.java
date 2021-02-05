@@ -1,4 +1,4 @@
-package com.example.ledclock;
+package com.example.ledclock.activities.settings;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.ledclock.activities.edit.EditPercentageActivity;
+import com.example.ledclock.R;
+import com.example.ledclock.bluetooth.Commands;
 import com.example.ledclock.settings.Settings;
 
 public class SettingsBrightnessActivity extends AppCompatActivity {
@@ -83,11 +86,13 @@ public class SettingsBrightnessActivity extends AppCompatActivity {
             int result = data.getIntExtra(EditPercentageActivity.EXTRA_RESULT, 0);
             mDayValue.setText(String.valueOf(result));
             Settings.getInstance().setmBrightnessDay(result);
+            Commands.setBrightnessDay(result);
         }
         else if (requestCode == REQUEST_NIGHT) {
             int result = data.getIntExtra(EditPercentageActivity.EXTRA_RESULT, 0);
             mNightValue.setText(String.valueOf(result));
             Settings.getInstance().setmBrightnessNight(result);
+            Commands.setBrightnessNight(result);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

@@ -1,4 +1,4 @@
-package com.example.ledclock;
+package com.example.ledclock.activities.settings;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,10 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.ledclock.activities.edit.EditPasswordActivity;
+import com.example.ledclock.activities.edit.EditStringActivity;
+import com.example.ledclock.R;
+import com.example.ledclock.bluetooth.Commands;
 import com.example.ledclock.settings.Settings;
 
 public class SettingsWifiActivity extends AppCompatActivity {
@@ -85,10 +89,12 @@ public class SettingsWifiActivity extends AppCompatActivity {
             String result = data.getStringExtra(EditStringActivity.EXTRA_RESULT);
             mSsidValue.setText(result);
             Settings.getInstance().setmWifiSsid(result);
+            Commands.setWifiSsid(result);
         }
         else if (requestCode == REQUEST_PASSWORD) {
             String result = data.getStringExtra(EditPasswordActivity.EXTRA_RESULT);
             Settings.getInstance().setmWifiPassword(result);
+            Commands.setWifiPassword(result);
             StringBuilder temp = new StringBuilder();
             for (int i = 0; i < Settings.getInstance().getmWifiPassword().length(); i++) temp.append("*");
             mPasswordValue.setText(temp.toString());

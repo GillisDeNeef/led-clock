@@ -17,7 +17,9 @@ bool bluetooth::begin(const char* name)
 // Send data to android app
 bool bluetooth::send(unsigned char* data, int length)
 {
-  
+  if (Serial.available()) {
+    bt.print((char)Serial.read());
+  }
 }
 
 // Receive data from android app

@@ -1,4 +1,4 @@
-package com.example.ledclock;
+package com.example.ledclock.activities.edit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,46 +7,47 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class EditDoubleActivity extends AppCompatActivity {
+import com.example.ledclock.R;
+import com.skydoves.colorpickerview.ColorPickerView;
+
+public class EditColorActivity extends AppCompatActivity {
     /* Constants */
-    public static final String EXTRA_TITLE = "RESULT_DOUBLE_TITLE";
-    public static final String EXTRA_DESCRIPTION = "RESULT_DOUBLE_DESCRIPTION";
-    public static final String EXTRA_VALUE = "RESULT_DOUBLE_VALUE";
-    public static final String EXTRA_RESULT = "RESULT_DOUBLE_RESULT";
+    public static final String EXTRA_TITLE = "RESULT_COLOR_TITLE";
+    public static final String EXTRA_DESCRIPTION = "RESULT_COLOR_DESCRIPTION";
+    public static final String EXTRA_VALUE = "RESULT_COLOR_VALUE";
+    public static final String EXTRA_RESULT = "RESULT_COLOR_RESULT";
 
     /* Activity components */
     private ImageButton mCloseBtn;
     private Button mSaveBtn;
     private TextView mDescription;
-    private EditText mValue;
+    private ColorPickerView mValue;
 
     // Called upon starting application
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_double);
+        setContentView(R.layout.activity_edit_color);
 
         // Fetch data from intent
         Intent intent = getIntent();
         String title = intent.getStringExtra(EXTRA_TITLE);
         String description = intent.getStringExtra(EXTRA_DESCRIPTION);
-        double value = intent.getDoubleExtra(EXTRA_VALUE, 0);
+        int value = intent.getIntExtra(EXTRA_VALUE, 0);
 
         // Set description
-        mDescription = (TextView) findViewById(R.id.ResultFloatDescriptionText);
+        mDescription = (TextView) findViewById(R.id.ResultColorDescriptionText);
         mDescription.setText(description);
 
         // Set value
-        mValue = (EditText) findViewById(R.id.ResultFloatValueText);
-        mValue.setHint(title);
-        mValue.setText(String.valueOf(value));
+        mValue = (ColorPickerView) findViewById(R.id.ResultColorValuePicker);
+        mValue.setInitialColor(value);
 
         // Return canceled upon clicking close button
-        mCloseBtn = (ImageButton) findViewById(R.id.ResultFloatCloseButton);
+        mCloseBtn = (ImageButton) findViewById(R.id.ResultColorCloseButton);
         mCloseBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
@@ -58,20 +59,16 @@ public class EditDoubleActivity extends AppCompatActivity {
         });
 
         // Return value upon clicking save button
-        mSaveBtn = (Button) findViewById(R.id.ResultFloatSaveButton);
+        mSaveBtn = (Button) findViewById(R.id.ResultColorSaveButton);
         mSaveBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra(EXTRA_RESULT, Double.parseDouble(mValue.getText().toString()));
+                returnIntent.putExtra(EXTRA_RESULT, mValue.getColor() & 0xFFFFFF);
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             }
         });
-
-        // Move focus to edittext
-        mValue.requestFocus();
-        mValue.setCursorVisible(true);
     }
 }

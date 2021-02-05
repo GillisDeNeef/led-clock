@@ -1,4 +1,4 @@
-package com.example.ledclock;
+package com.example.ledclock.activities.settings;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.ledclock.activities.edit.EditDoubleActivity;
+import com.example.ledclock.R;
+import com.example.ledclock.bluetooth.Commands;
 import com.example.ledclock.settings.Settings;
 
 public class SettingsLocationActivity extends AppCompatActivity {
@@ -83,11 +86,13 @@ public class SettingsLocationActivity extends AppCompatActivity {
             double result = data.getDoubleExtra(EditDoubleActivity.EXTRA_RESULT, 0);
             mLongitudeValue.setText(String.valueOf(result));
             Settings.getInstance().setmLongitude(result);
+            Commands.setLocationLongitude(result);
         }
         else if (requestCode == REQUEST_LATITUDE) {
             double result = data.getDoubleExtra(EditDoubleActivity.EXTRA_RESULT, 0);
             mLatitudeValue.setText(String.valueOf(result));
             Settings.getInstance().setmLatitude(result);
+            Commands.setLocationLatitude(result);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

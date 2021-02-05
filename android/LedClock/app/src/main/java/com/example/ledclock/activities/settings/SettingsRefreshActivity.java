@@ -1,4 +1,4 @@
-package com.example.ledclock;
+package com.example.ledclock.activities.settings;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.ledclock.activities.edit.EditIntActivity;
+import com.example.ledclock.R;
+import com.example.ledclock.bluetooth.Commands;
 import com.example.ledclock.settings.Settings;
 
 public class SettingsRefreshActivity extends AppCompatActivity {
@@ -64,6 +67,7 @@ public class SettingsRefreshActivity extends AppCompatActivity {
             int result = data.getIntExtra(EditIntActivity.EXTRA_RESULT, 0);
             mRateValue.setText(String.valueOf(result));
             Settings.getInstance().setmRefresh(result);
+            Commands.setRefreshRate(result);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
