@@ -9,6 +9,7 @@
 
     <string name="settings_title">LED Clock settings</string>
     <string name="settings_option_disconnect">Disconnect</string>
+    <string name="settings_option_dark_mode">Dark mode</string>
     <string name="settings_network_title">Network</string>
     <string name="settings_network_wifi">Wifi credentials</string>
     <string name="settings_time_title">Time</string>

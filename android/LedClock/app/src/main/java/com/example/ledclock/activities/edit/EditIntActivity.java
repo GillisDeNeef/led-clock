@@ -15,10 +15,10 @@ import com.example.ledclock.R;
 
 public class EditIntActivity extends AppCompatActivity {
     /* Constants */
-    public static final String EXTRA_TITLE = "RESULT_INT_TITLE";
-    public static final String EXTRA_DESCRIPTION = "RESULT_INT_DESCRIPTION";
-    public static final String EXTRA_VALUE = "RESULT_INT_VALUE";
-    public static final String EXTRA_RESULT = "RESULT_INT_RESULT";
+    public static final String EXTRA_TITLE = "EDIT_INT_TITLE";
+    public static final String EXTRA_DESCRIPTION = "EDIT_INT_DESCRIPTION";
+    public static final String EXTRA_VALUE = "EDIT_INT_VALUE";
+    public static final String EXTRA_RESULT = "EDIT_INT_RESULT";
 
     /* Activity components */
     private ImageButton mCloseBtn;

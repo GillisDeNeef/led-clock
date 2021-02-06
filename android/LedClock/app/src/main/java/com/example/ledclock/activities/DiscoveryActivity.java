@@ -120,14 +120,17 @@ public class DiscoveryActivity extends AppCompatActivity {
                     if (mAddress == null) {
                         mAddress = device.getAddress();
                         mStatus.setText(getString(R.string.main_connecting));
+                        mAdapter.cancelDiscovery();
                         Commands.start(mAddress, mHandler);
                     }
                 }
             }
             else if(BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                mStatus.setText(getString(R.string.main_stop_discover));
-                mProgress.setVisibility(View.INVISIBLE);
-                mButton.setVisibility(View.VISIBLE);
+                if (mAddress == null) {
+                    mStatus.setText(getString(R.string.main_stop_discover));
+                    mProgress.setVisibility(View.INVISIBLE);
+                    mButton.setVisibility(View.VISIBLE);
+                }
             }
         }
     };
@@ -181,6 +184,7 @@ public class DiscoveryActivity extends AppCompatActivity {
                     Intent i = new Intent(DiscoveryActivity.this, SettingsActivity.class);
                     i.putExtra(EXTRA_ADDRESS, mAddress);
                     startActivity(i);
+                    stopDiscovery();
                     break;
             }
         }

@@ -81,6 +81,7 @@
         android:hint="@string/result_value"
         android:inputType="numberSigned"
         android:text="@string/result_value"
+        app:debounceDuration="50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ResultColorDescriptionText" />

@@ -3,8 +3,12 @@ package com.example.ledclock.activities.settings;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -74,13 +78,24 @@ public class SettingsBrightnessActivity extends AppCompatActivity {
         });
         mNightValue = (TextView) findViewById(R.id.BrightnessNightDescriptionText);
         mNightValue.setText(String.valueOf(Settings.getInstance().getmBrightnessNight()));
+
+        // Broadcast receiver for progress
+        IntentFilter filter = new IntentFilter(EditPercentageActivity.ACTION_PROGRESS);
+        registerReceiver(mReceiver, filter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(mReceiver);
+        super.onDestroy();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         if (resultCode == Activity.RESULT_CANCELED) {
-            // code to handle cancelled state
+            Commands.setBrightnessDay(Settings.getInstance().getmBrightnessDay());
+            Commands.setBrightnessNight(Settings.getInstance().getmBrightnessNight());
         }
         else if (requestCode == REQUEST_DAY) {
             int result = data.getIntExtra(EditPercentageActivity.EXTRA_RESULT, 0);
@@ -96,4 +111,17 @@ public class SettingsBrightnessActivity extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String title = intent.getStringExtra(EditPercentageActivity.EXTRA_TITLE);
+            int value = intent.getIntExtra(EditPercentageActivity.EXTRA_VALUE, 0);
+            if (title.equals("Brightness day")) {
+                Commands.setBrightnessDay(value);
+            } else if (title.equals("Brightness night")) {
+                Commands.setBrightnessNight(value);
+            }
+        }
+    };
 }

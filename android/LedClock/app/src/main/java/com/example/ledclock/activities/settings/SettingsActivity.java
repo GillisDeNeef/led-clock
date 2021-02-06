@@ -1,9 +1,12 @@
 package com.example.ledclock.activities.settings;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,9 +16,6 @@ import android.widget.PopupMenu;
 import com.example.ledclock.R;
 
 public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
-    /* Constants */
-    public static final String EXTRA_DEVICE = "bluetooth_device";
-
     /* Activity components */
     private ImageButton mBackBtn;
     private ImageButton mDotsBtn;
@@ -25,6 +25,9 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
     private Button mRefreshBtn;
     private Button mColorBtn;
     private Button mBrightnessBtn;
+
+    /* Variables */
+    private boolean mChecked = false;
 
     // Called upon starting application
     @Override
@@ -50,6 +53,7 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
                 PopupMenu popup = new PopupMenu(SettingsActivity.this, v);
                 popup.setOnMenuItemClickListener(SettingsActivity.this);
                 popup.inflate(R.menu.dots_menu);
+                popup.getMenu().findItem(R.id.DarkModeItem).setChecked(mChecked);
                 popup.show();
             }
         });
@@ -61,7 +65,6 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
             public void onClick(View v)
             {
                 Intent i = new Intent(SettingsActivity.this, SettingsWifiActivity.class);
-                i.putExtra(EXTRA_DEVICE, "");
                 startActivity(i);
             }
         });
@@ -73,7 +76,6 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
             public void onClick(View v)
             {
                 Intent i = new Intent(SettingsActivity.this, SettingsNtpActivity.class);
-                i.putExtra(EXTRA_DEVICE, "");
                 startActivity(i);
             }
         });
@@ -85,7 +87,6 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
             public void onClick(View v)
             {
                 Intent i = new Intent(SettingsActivity.this, SettingsLocationActivity.class);
-                i.putExtra(EXTRA_DEVICE, "");
                 startActivity(i);
             }
         });
@@ -97,7 +98,6 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
             public void onClick(View v)
             {
                 Intent i = new Intent(SettingsActivity.this, SettingsRefreshActivity.class);
-                i.putExtra(EXTRA_DEVICE, "");
                 startActivity(i);
             }
         });
@@ -109,7 +109,6 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
             public void onClick(View v)
             {
                 Intent i = new Intent(SettingsActivity.this, SettingsColorsActivity.class);
-                i.putExtra(EXTRA_DEVICE, "");
                 startActivity(i);
             }
         });
@@ -121,7 +120,6 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
             public void onClick(View v)
             {
                 Intent i = new Intent(SettingsActivity.this, SettingsBrightnessActivity.class);
-                i.putExtra(EXTRA_DEVICE, "");
                 startActivity(i);
             }
         });
@@ -133,6 +131,17 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
         switch (item.getItemId()) {
             case R.id.DisconnectItem:
                 finish();
+                return true;
+            case R.id.DarkModeItem:
+                mChecked = !item.isChecked();
+                if (mChecked) {
+                    // Disable dark mode
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                } else {
+                    // Enable dark mode
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+                item.setChecked(mChecked);
                 return true;
             default:
                 return false;

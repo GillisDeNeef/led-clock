@@ -8,17 +8,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.ledclock.R;
 import com.skydoves.colorpickerview.ColorPickerView;
+import com.skydoves.colorpickerview.listeners.ColorListener;
+import com.skydoves.colorpickerview.listeners.ColorPickerViewListener;
 
 public class EditColorActivity extends AppCompatActivity {
     /* Constants */
-    public static final String EXTRA_TITLE = "RESULT_COLOR_TITLE";
-    public static final String EXTRA_DESCRIPTION = "RESULT_COLOR_DESCRIPTION";
-    public static final String EXTRA_VALUE = "RESULT_COLOR_VALUE";
-    public static final String EXTRA_RESULT = "RESULT_COLOR_RESULT";
+    public static final String EXTRA_TITLE = "EDIT_COLOR_TITLE";
+    public static final String EXTRA_DESCRIPTION = "EDIT_COLOR_DESCRIPTION";
+    public static final String EXTRA_VALUE = "EDIT_COLOR_VALUE";
+    public static final String EXTRA_RESULT = "EDIT_COLOR_RESULT";
+    public static final String ACTION_PROGRESS = "EDIT_COLOR_PROGRESS";
 
     /* Activity components */
     private ImageButton mCloseBtn;
@@ -45,6 +49,18 @@ public class EditColorActivity extends AppCompatActivity {
         // Set value
         mValue = (ColorPickerView) findViewById(R.id.ResultColorValuePicker);
         mValue.setInitialColor(value);
+        mValue.setColorListener(new ColorListener() {
+            @Override
+            public void onColorSelected(int color, boolean fromUser) {
+                if (fromUser) {
+                    Intent broadcastIntent = new Intent();
+                    broadcastIntent.setAction(ACTION_PROGRESS);
+                    broadcastIntent.putExtra(EXTRA_TITLE, title);
+                    broadcastIntent.putExtra(EXTRA_VALUE, color & 0xFFFFFF);
+                    sendBroadcast(broadcastIntent);
+                }
+            }
+        });
 
         // Return canceled upon clicking close button
         mCloseBtn = (ImageButton) findViewById(R.id.ResultColorCloseButton);

@@ -15,10 +15,10 @@ import com.example.ledclock.R;
 
 public class EditDoubleActivity extends AppCompatActivity {
     /* Constants */
-    public static final String EXTRA_TITLE = "RESULT_DOUBLE_TITLE";
-    public static final String EXTRA_DESCRIPTION = "RESULT_DOUBLE_DESCRIPTION";
-    public static final String EXTRA_VALUE = "RESULT_DOUBLE_VALUE";
-    public static final String EXTRA_RESULT = "RESULT_DOUBLE_RESULT";
+    public static final String EXTRA_TITLE = "EDIT_DOUBLE_TITLE";
+    public static final String EXTRA_DESCRIPTION = "EDIT_DOUBLE_DESCRIPTION";
+    public static final String EXTRA_VALUE = "EDIT_DOUBLE_VALUE";
+    public static final String EXTRA_RESULT = "EDIT_DOUBLE_RESULT";
 
     /* Activity components */
     private ImageButton mCloseBtn;

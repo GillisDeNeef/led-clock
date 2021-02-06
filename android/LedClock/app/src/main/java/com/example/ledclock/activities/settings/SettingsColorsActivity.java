@@ -3,7 +3,10 @@ package com.example.ledclock.activities.settings;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -12,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.ledclock.activities.edit.EditColorActivity;
 import com.example.ledclock.R;
+import com.example.ledclock.activities.edit.EditPercentageActivity;
 import com.example.ledclock.bluetooth.Commands;
 import com.example.ledclock.settings.Settings;
 
@@ -74,13 +78,24 @@ public class SettingsColorsActivity extends AppCompatActivity {
         });
         mMinutesValue = (TextView) findViewById(R.id.ColorsMinutesDescriptionText);
         mMinutesValue.setText(String.format("0x%06X", Settings.getInstance().getmColorMinutes()));
+
+        // Broadcast receiver for progress
+        IntentFilter filter = new IntentFilter(EditColorActivity.ACTION_PROGRESS);
+        registerReceiver(mReceiver, filter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(mReceiver);
+        super.onDestroy();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         if (resultCode == Activity.RESULT_CANCELED) {
-            // code to handle cancelled state
+            Commands.setColorHours(Settings.getInstance().getmColorHours());
+            Commands.setColorMinutes(Settings.getInstance().getmColorMinutes());
         }
         else if (requestCode == REQUEST_HOURS) {
             int result = data.getIntExtra(EditColorActivity.EXTRA_RESULT, 0);
@@ -96,4 +111,17 @@ public class SettingsColorsActivity extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String title = intent.getStringExtra(EditColorActivity.EXTRA_TITLE);
+            int value = intent.getIntExtra(EditColorActivity.EXTRA_VALUE, 0);
+            if (title.equals("Color hours")) {
+                Commands.setColorHours(value);
+            } else if (title.equals("Color minutes")) {
+                Commands.setColorMinutes(value);
+            }
+        }
+    };
 }

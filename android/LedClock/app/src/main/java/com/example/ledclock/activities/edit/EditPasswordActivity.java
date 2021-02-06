@@ -15,10 +15,10 @@ import com.example.ledclock.R;
 
 public class EditPasswordActivity extends AppCompatActivity {
     /* Constants */
-    public static final String EXTRA_TITLE = "RESULT_PASSWORD_TITLE";
-    public static final String EXTRA_DESCRIPTION = "RESULT_PASSWORD_DESCRIPTION";
-    public static final String EXTRA_VALUE = "RESULT_PASSWORD_VALUE";
-    public static final String EXTRA_RESULT = "RESULT_PASSWORD_RESULT";
+    public static final String EXTRA_TITLE = "EDIT_PASSWORD_TITLE";
+    public static final String EXTRA_DESCRIPTION = "EDIT_PASSWORD_DESCRIPTION";
+    public static final String EXTRA_VALUE = "EDIT_PASSWORD_VALUE";
+    public static final String EXTRA_RESULT = "EDIT_PASSWORD_RESULT";
 
     /* Activity components */
     private ImageButton mCloseBtn;

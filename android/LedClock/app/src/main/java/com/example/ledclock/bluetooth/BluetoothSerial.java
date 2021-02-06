@@ -118,7 +118,7 @@ public class BluetoothSerial {
     // Thread handles communication with bluetooth device
     private class CommunicationThread extends Thread {
         private static final byte START = 0x2A;
-        private static final byte STOP = 0x0D;
+        private static final byte STOP = 0x0A;
 
         private final InputStream mmInStream;
         private final OutputStream mmOutStream;
