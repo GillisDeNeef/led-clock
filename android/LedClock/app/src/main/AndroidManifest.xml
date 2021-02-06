@@ -8,44 +8,34 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LedClock">
-        <activity android:name=".activities.edit.EditColorActivity"></activity>
+        android:theme="@style/Theme.LedClock"
+        android:allowBackup="true"
+        android:fullBackupContent="true">
+        <activity android:name=".activities.edit.EditColorActivity" />
         <activity android:name=".activities.edit.EditPercentageActivity" />
-        <activity
-            android:name=".activities.edit.EditDoubleActivity"
-            android:windowSoftInputMode="stateVisible" />
-        <activity
-            android:name=".activities.edit.EditIntActivity"
-            android:windowSoftInputMode="stateVisible" />
-        <activity
-            android:name=".activities.edit.EditStringActivity"
-            android:windowSoftInputMode="stateVisible" />
-        <activity
-            android:name=".activities.edit.EditPasswordActivity"
-            android:windowSoftInputMode="stateVisible" />
+        <activity android:name=".activities.edit.EditDoubleActivity" android:windowSoftInputMode="stateVisible" />
+        <activity android:name=".activities.edit.EditIntActivity" android:windowSoftInputMode="stateVisible" />
+        <activity android:name=".activities.edit.EditStringActivity" android:windowSoftInputMode="stateVisible" />
+        <activity android:name=".activities.edit.EditPasswordActivity" android:windowSoftInputMode="stateVisible" />
         <activity android:name=".activities.settings.SettingsBrightnessActivity" />
         <activity android:name=".activities.settings.SettingsColorsActivity" />
         <activity android:name=".activities.settings.SettingsRefreshActivity" />
         <activity android:name=".activities.settings.SettingsLocationActivity" />
         <activity android:name=".activities.settings.SettingsNtpActivity" />
         <activity android:name=".activities.settings.SettingsWifiActivity" />
+        <activity android:name=".activities.settings.SettingsActivity" />
         <activity android:name=".activities.DiscoveryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.settings.SettingsActivity" />
 
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
+        <meta-data android:name="preloaded_fonts" android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

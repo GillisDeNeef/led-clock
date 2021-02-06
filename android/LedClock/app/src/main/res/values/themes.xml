@@ -1,17 +1,26 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.LedClock" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">@color/white</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/light_blue</item>
-        <item name="colorSecondaryVariant">@color/blue</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    <!-- Light application theme. -->
+    <style name="Theme.LedClock" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/lightPrimary</item>
+        <item name="colorPrimaryVariant">@color/lightPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/lightOnPrimary</item>
+        <item name="android:textColorPrimary">@color/lightTextPrimary</item>
+
+        <item name="colorSecondary">@color/lightSecondary</item>
+        <item name="colorSecondaryVariant">@color/lightSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/lightOnSecondary</item>
+        <item name="android:textColorSecondary">@color/lightTextSecondary</item>
+
+        <item name="android:colorBackground">@color/lightBackground</item>
+        <item name="colorOnBackground">@color/lightOnBackground</item>
+
+        <item name="colorSurface">@color/lightSurface</item>
+        <item name="colorOnSurface">@color/lightOnSurface</item>
+
+        <item name="colorError">@color/lightError</item>
+        <item name="colorOnError">@color/lightOnError</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSurface</item>
         <item name="android:windowLightStatusBar">true</item>
-        <!-- Customize your theme here. -->
     </style>
 </resources>

@@ -54,13 +54,13 @@ public class SettingsNtpActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(SettingsNtpActivity.this, EditStringActivity.class);
-                intent.putExtra(EditStringActivity.EXTRA_TITLE, "NTP");
-                intent.putExtra(EditStringActivity.EXTRA_DESCRIPTION, "Enter url of ntp server.");
+                intent.putExtra(EditStringActivity.EXTRA_TITLE, getString(R.string.ntp_settings_server_title));
+                intent.putExtra(EditStringActivity.EXTRA_DESCRIPTION, getString(R.string.ntp_settings_server_description));
                 intent.putExtra(EditStringActivity.EXTRA_VALUE, Settings.getInstance().getmNtpServer());
                 startActivityForResult(intent, REQUEST_NTP);
             }
         });
-        mNtpValue = (TextView) findViewById(R.id.NtpServerDescriptionText);
+        mNtpValue = (TextView) findViewById(R.id.NtpServerValueText);
         mNtpValue.setText(Settings.getInstance().getmNtpServer());
 
         // Set GMT upon clicking linearlayout
@@ -70,13 +70,13 @@ public class SettingsNtpActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(SettingsNtpActivity.this, EditIntActivity.class);
-                intent.putExtra(EditIntActivity.EXTRA_TITLE, "GMT");
-                intent.putExtra(EditIntActivity.EXTRA_DESCRIPTION, "Enter gmt offset for your location (minutes).");
+                intent.putExtra(EditIntActivity.EXTRA_TITLE, getString(R.string.ntp_settings_gmt_title));
+                intent.putExtra(EditIntActivity.EXTRA_DESCRIPTION, getString(R.string.ntp_settings_gmt_description));
                 intent.putExtra(EditIntActivity.EXTRA_VALUE, Settings.getInstance().getmGmtOffset());
                 startActivityForResult(intent, REQUEST_GMT);
             }
         });
-        mGmtValue = (TextView) findViewById(R.id.NtpGmtDescriptionText);
+        mGmtValue = (TextView) findViewById(R.id.NtpGmtValueText);
         mGmtValue.setText(String.valueOf(Settings.getInstance().getmGmtOffset()));
 
         // Set daylight upon clicking linearlayout
@@ -86,13 +86,13 @@ public class SettingsNtpActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(SettingsNtpActivity.this, EditIntActivity.class);
-                intent.putExtra(EditIntActivity.EXTRA_TITLE, "Daylight");
-                intent.putExtra(EditIntActivity.EXTRA_DESCRIPTION, "Enter daylight saving time for your location (minutes).");
+                intent.putExtra(EditIntActivity.EXTRA_TITLE, getString(R.string.ntp_settings_daylight_title));
+                intent.putExtra(EditIntActivity.EXTRA_DESCRIPTION, getString(R.string.ntp_settings_daylight_description));
                 intent.putExtra(EditIntActivity.EXTRA_VALUE, Settings.getInstance().getmDaylight());
                 startActivityForResult(intent, REQUEST_DAYLIGHT);
             }
         });
-        mDaylightValue = (TextView) findViewById(R.id.NtpDaylightDescriptionText);
+        mDaylightValue = (TextView) findViewById(R.id.NtpDaylightValueText);
         mDaylightValue.setText(String.valueOf(Settings.getInstance().getmDaylight()));
     }
 

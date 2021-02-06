@@ -1,6 +1,7 @@
 package com.example.ledclock.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -12,14 +13,18 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -33,12 +38,14 @@ import com.example.ledclock.settings.Settings;
 // Interface for task notifications
 
 
-public class DiscoveryActivity extends AppCompatActivity {
+public class DiscoveryActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     /* Constants */
     private static final String DEVICE_NAME = "LED Clock";
-    public static final String EXTRA_ADDRESS = "device_address";
+    private static final String SHARED_PREFERENCES = "sharedPrefs";
+    private static final String SHARED_PREFERENCES_DARK_MODE = "mDarkMode";
 
     /* Activity components */
+    private ImageButton mDotsBtn;
     private TextView mStatus;
     private ProgressBar mProgress;
     private ImageButton mButton;
@@ -47,12 +54,38 @@ public class DiscoveryActivity extends AppCompatActivity {
     private BluetoothAdapter mAdapter = null;
     private String mAddress = null;
 
+    private SharedPreferences mPreferences = null;
+    private boolean mDarkMode = false;
+
     // Called upon starting application
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discovery);
 
+        // Initialize dark mode
+        mPreferences = getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE);
+        mDarkMode = mPreferences.getBoolean(SHARED_PREFERENCES_DARK_MODE, false);
+        if (mDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
+        // Open popup menu upon clicking dots button
+        mDotsBtn = (ImageButton) findViewById(R.id.MainDotsButton);
+        mDotsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popup = new PopupMenu(DiscoveryActivity.this, v);
+                popup.setOnMenuItemClickListener(DiscoveryActivity.this);
+                popup.inflate(R.menu.launch_menu);
+                popup.getMenu().findItem(R.id.DarkModeItem).setChecked(mDarkMode);
+                popup.show();
+            }
+        });
+
+        // Initialize components
         mStatus = (TextView) findViewById(R.id.ConnectionStatus);
         mProgress = (ProgressBar) findViewById(R.id.ConnectionProgress);
         mButton = (ImageButton) findViewById(R.id.ConnectionButton);
@@ -95,16 +128,25 @@ public class DiscoveryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                startDiscovery();
+                if (mAdapter.isDiscovering()) mAdapter.cancelDiscovery();
+                mAdapter.startDiscovery();
             }
         });
+
+        // Register broadcast receiver
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(BluetoothDevice.ACTION_FOUND);
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+        registerReceiver(mReceiver, filter);
     }
 
     // Called upon closing application
     @Override
     protected void onDestroy()
     {
-        stopDiscovery();
+        mAdapter.cancelDiscovery();
+        unregisterReceiver(mReceiver);
         super.onDestroy();
     }
 
@@ -113,9 +155,15 @@ public class DiscoveryActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if(BluetoothDevice.ACTION_FOUND.equals(action)) {
+            if(BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
+                Commands.stop();
+                mAddress = null;
+                mStatus.setText(getString(R.string.main_start_discovery));
+                mButton.setVisibility(View.INVISIBLE);
+                mProgress.setVisibility(View.VISIBLE);
+            }
+            else if(BluetoothDevice.ACTION_FOUND.equals(action)) {
                 BluetoothDevice device = (BluetoothDevice)intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                Log.d("BTDEVICE", "Device found " + device.getName() + " " + device.getAddress());
                 if (device.getName() != null && device.getName().equals(DEVICE_NAME)) {
                     if (mAddress == null) {
                         mAddress = device.getAddress();
@@ -182,41 +230,37 @@ public class DiscoveryActivity extends AppCompatActivity {
                     break;
                 case Commands.FETCH_SETTINGS:
                     Intent i = new Intent(DiscoveryActivity.this, SettingsActivity.class);
-                    i.putExtra(EXTRA_ADDRESS, mAddress);
                     startActivity(i);
-                    stopDiscovery();
+
+                    mStatus.setText(getString(R.string.main_stop_discover));
+                    mProgress.setVisibility(View.INVISIBLE);
+                    mButton.setVisibility(View.VISIBLE);
                     break;
             }
         }
     };
 
-    // Start bluetooth device discovery
-    private void startDiscovery()
-    {
-        Commands.stop();
-
-        mAddress = null;
-        mStatus.setText(getString(R.string.main_start_discovery));
-        mButton.setVisibility(View.INVISIBLE);
-        mProgress.setVisibility(View.VISIBLE);
-
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(BluetoothDevice.ACTION_FOUND);
-        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-        registerReceiver(mReceiver, filter);
-
-        if (mAdapter.isDiscovering()) mAdapter.cancelDiscovery();
-        mAdapter.startDiscovery();
-    }
-
-    // Stop bluetooth device discovery
-    private void stopDiscovery()
-    {
-        mAdapter.cancelDiscovery();
-        if (mReceiver != null) unregisterReceiver(mReceiver);
-
-        mStatus.setText(getString(R.string.main_stop_discover));
-        mProgress.setVisibility(View.INVISIBLE);
-        mButton.setVisibility(View.VISIBLE);
+    // Dots button popup menu handler
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.ConnectItem:
+                if (mAdapter.isDiscovering()) mAdapter.cancelDiscovery();
+                mAdapter.startDiscovery();
+                return true;
+            case R.id.DarkModeItem:
+                mDarkMode = !item.isChecked();
+                if (mDarkMode) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    mPreferences.edit().putBoolean(SHARED_PREFERENCES_DARK_MODE, true).apply();
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    mPreferences.edit().putBoolean(SHARED_PREFERENCES_DARK_MODE, false).apply();
+                }
+                item.setChecked(mDarkMode);
+                return true;
+            default:
+                return false;
+        }
     }
 }

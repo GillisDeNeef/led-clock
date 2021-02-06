@@ -47,13 +47,13 @@ public class SettingsRefreshActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(SettingsRefreshActivity.this, EditIntActivity.class);
-                intent.putExtra(EditIntActivity.EXTRA_TITLE, "Refresh rate");
-                intent.putExtra(EditIntActivity.EXTRA_DESCRIPTION, "Enter refresh rate for time display (in ms).");
+                intent.putExtra(EditIntActivity.EXTRA_TITLE, getString(R.string.refresh_settings_rate_title));
+                intent.putExtra(EditIntActivity.EXTRA_DESCRIPTION,getString(R.string.refresh_settings_rate_description));
                 intent.putExtra(EditIntActivity.EXTRA_VALUE, Settings.getInstance().getmRefresh());
                 startActivityForResult(intent, REQUEST_REFRESH);
             }
         });
-        mRateValue = (TextView) findViewById(R.id.RefreshRateDescriptionText);
+        mRateValue = (TextView) findViewById(R.id.RefreshRateValueText);
         mRateValue.setText(String.valueOf(Settings.getInstance().getmRefresh()));
     }
 

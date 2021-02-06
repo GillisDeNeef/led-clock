@@ -6,13 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".activities.DiscoveryActivity">
 
+    <ImageButton
+        android:id="@+id/MainDotsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@null"
+        android:paddingStart="20dp"
+        android:paddingBottom="20dp"
+        android:tint="?colorOnBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/more_vert_24px" />
+
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/ConnectionProgress"
         style="@style/SpinKitView.DoubleBounce"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        app:SpinKit_Color="@color/light_blue"
+        app:SpinKit_Color="?colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/ConnectionStatus"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -25,7 +40,7 @@
         android:layout_marginBottom="40dp"
         android:background="@android:color/transparent"
         android:contentDescription="@null"
-        android:tint="@color/light_blue"
+        android:tint="?colorPrimary"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/ConnectionStatus"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/product_sans_regular"
-        android:textColor="@color/gray"
+        android:textColor="?colorOnBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -51,13 +51,13 @@ public class SettingsWifiActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(SettingsWifiActivity.this, EditStringActivity.class);
-                intent.putExtra(EditStringActivity.EXTRA_TITLE, "SSID");
-                intent.putExtra(EditStringActivity.EXTRA_DESCRIPTION, "Enter name of wifi network.");
+                intent.putExtra(EditStringActivity.EXTRA_TITLE, getString(R.string.wifi_settings_ssid_title));
+                intent.putExtra(EditStringActivity.EXTRA_DESCRIPTION, getString(R.string.wifi_settings_ssid_description));
                 intent.putExtra(EditStringActivity.EXTRA_VALUE, Settings.getInstance().getmWifiSsid());
                 startActivityForResult(intent, REQUEST_SSID);
             }
         });
-        mSsidValue = (TextView) findViewById(R.id.WifiSsidDescriptionText);
+        mSsidValue = (TextView) findViewById(R.id.WifiSsidValueText);
         mSsidValue.setText(Settings.getInstance().getmWifiSsid());
 
         // Set password upon clicking linearlayout
@@ -67,15 +67,15 @@ public class SettingsWifiActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(SettingsWifiActivity.this, EditPasswordActivity.class);
-                intent.putExtra(EditPasswordActivity.EXTRA_TITLE, "Password");
-                intent.putExtra(EditPasswordActivity.EXTRA_DESCRIPTION, "Enter password of wifi network.");
+                intent.putExtra(EditPasswordActivity.EXTRA_TITLE, getString(R.string.wifi_settings_password_title));
+                intent.putExtra(EditPasswordActivity.EXTRA_DESCRIPTION, getString(R.string.wifi_settings_password_description));
                 intent.putExtra(EditPasswordActivity.EXTRA_VALUE, Settings.getInstance().getmWifiPassword());
                 startActivityForResult(intent, REQUEST_PASSWORD);
             }
         });
         StringBuilder temp = new StringBuilder();
         for (int i = 0; i < Settings.getInstance().getmWifiPassword().length(); i++) temp.append("*");
-        mPasswordValue = (TextView) findViewById(R.id.WifiPasswordDescriptionText);
+        mPasswordValue = (TextView) findViewById(R.id.WifiPasswordValueText);
         mPasswordValue.setText(temp.toString());
     }
 

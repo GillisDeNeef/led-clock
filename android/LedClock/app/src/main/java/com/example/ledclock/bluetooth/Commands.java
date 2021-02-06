@@ -34,7 +34,8 @@ public class Commands{
     }
     public static void stop()
     {
-        mSerial.closeConnection();
+        if (mSerial != null)
+            mSerial.closeConnection();
     }
 
     // Commands

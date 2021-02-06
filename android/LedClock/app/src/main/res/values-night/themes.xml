@@ -1,16 +1,25 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.LedClock" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/gray</item>
-        <item name="colorPrimaryVariant">@color/gray</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/light_blue</item>
-        <item name="colorSecondaryVariant">@color/blue</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/darkPrimary</item>
+        <item name="colorPrimaryVariant">@color/darkPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/darkOnPrimary</item>
+        <item name="android:textColorPrimary">@color/darkTextPrimary</item>
+
+        <item name="colorSecondary">@color/darkSecondary</item>
+        <item name="colorSecondaryVariant">@color/darkSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/darkOnSecondary</item>
+        <item name="android:textColorSecondary">@color/darkTextSecondary</item>
+
+        <item name="android:colorBackground">@color/darkBackground</item>
+        <item name="colorOnBackground">@color/darkOnBackground</item>
+
+        <item name="colorSurface">@color/darkSurface</item>
+        <item name="colorOnSurface">@color/darkOnSurface</item>
+
+        <item name="colorError">@color/darkError</item>
+        <item name="colorOnError">@color/darkOnError</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSurface</item>
     </style>
 </resources>

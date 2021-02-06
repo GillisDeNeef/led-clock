@@ -1,12 +1,9 @@
 package com.example.ledclock.activities.settings;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -25,9 +22,6 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
     private Button mRefreshBtn;
     private Button mColorBtn;
     private Button mBrightnessBtn;
-
-    /* Variables */
-    private boolean mChecked = false;
 
     // Called upon starting application
     @Override
@@ -52,8 +46,7 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
             public void onClick(View v) {
                 PopupMenu popup = new PopupMenu(SettingsActivity.this, v);
                 popup.setOnMenuItemClickListener(SettingsActivity.this);
-                popup.inflate(R.menu.dots_menu);
-                popup.getMenu().findItem(R.id.DarkModeItem).setChecked(mChecked);
+                popup.inflate(R.menu.settings_menu);
                 popup.show();
             }
         });
@@ -131,17 +124,6 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
         switch (item.getItemId()) {
             case R.id.DisconnectItem:
                 finish();
-                return true;
-            case R.id.DarkModeItem:
-                mChecked = !item.isChecked();
-                if (mChecked) {
-                    // Disable dark mode
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                } else {
-                    // Enable dark mode
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                }
-                item.setChecked(mChecked);
                 return true;
             default:
                 return false;

@@ -16,7 +16,7 @@
         android:paddingBottom="20dp"
         android:background="@android:color/transparent"
         android:contentDescription="@null"
-        android:tint="@color/gray"
+        android:tint="?colorOnBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/arrow_back_24px" />
@@ -29,7 +29,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/product_sans_bold"
         android:text="@string/wifi_settings_title"
-        android:textColor="@color/gray"
+        android:textColor="?colorOnBackground"
         android:textSize="19sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -55,17 +55,17 @@
             android:layout_marginBottom="3dp"
             android:fontFamily="@font/product_sans_regular"
             android:text="@string/wifi_settings_ssid_title"
-            android:textColor="@color/gray"
+            android:textColor="?android:textColorPrimary"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/WifiSsidDescriptionText"
+            android:id="@+id/WifiSsidValueText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:fontFamily="@font/product_sans_regular"
-            android:text="@string/wifi_settings_ssid_description"
-            android:textColor="@color/lightest_gray" />
+            android:text="@string/wifi_settings_ssid_value"
+            android:textColor="?android:textColorSecondary" />
 
     </LinearLayout>
 
@@ -90,17 +90,17 @@
             android:layout_marginBottom="3dp"
             android:fontFamily="@font/product_sans_regular"
             android:text="@string/wifi_settings_password_title"
-            android:textColor="@color/gray"
+            android:textColor="?android:textColorPrimary"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/WifiPasswordDescriptionText"
+            android:id="@+id/WifiPasswordValueText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:fontFamily="@font/product_sans_regular"
-            android:text="@string/wifi_settings_password_description"
-            android:textColor="@color/lightest_gray" />
+            android:text="@string/wifi_settings_password_value"
+            android:textColor="?android:textColorSecondary" />
 
     </LinearLayout>
 

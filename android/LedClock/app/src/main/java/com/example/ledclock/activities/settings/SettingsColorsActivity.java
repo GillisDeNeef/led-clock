@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.example.ledclock.activities.edit.EditColorActivity;
 import com.example.ledclock.R;
-import com.example.ledclock.activities.edit.EditPercentageActivity;
 import com.example.ledclock.bluetooth.Commands;
 import com.example.ledclock.settings.Settings;
 
@@ -54,13 +53,13 @@ public class SettingsColorsActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(SettingsColorsActivity.this, EditColorActivity.class);
-                intent.putExtra(EditColorActivity.EXTRA_TITLE, "Color hours");
-                intent.putExtra(EditColorActivity.EXTRA_DESCRIPTION, "Set color for hour digits.");
+                intent.putExtra(EditColorActivity.EXTRA_TITLE, getString(R.string.colors_settings_hours_title));
+                intent.putExtra(EditColorActivity.EXTRA_DESCRIPTION, getString(R.string.colors_settings_hours_description));
                 intent.putExtra(EditColorActivity.EXTRA_VALUE, Settings.getInstance().getmColorHours());
                 startActivityForResult(intent, REQUEST_HOURS);
             }
         });
-        mHoursValue = (TextView) findViewById(R.id.ColorsHoursDescriptionText);
+        mHoursValue = (TextView) findViewById(R.id.ColorsHoursValueText);
         mHoursValue.setText(String.format("0x%06X", Settings.getInstance().getmColorHours()));
 
         // Set minutes color upon clicking linearlayout
@@ -70,13 +69,13 @@ public class SettingsColorsActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(SettingsColorsActivity.this, EditColorActivity.class);
-                intent.putExtra(EditColorActivity.EXTRA_TITLE, "Color minutes");
-                intent.putExtra(EditColorActivity.EXTRA_DESCRIPTION, "Set color for minutes digits.");
+                intent.putExtra(EditColorActivity.EXTRA_TITLE, getString(R.string.colors_settings_minutes_title));
+                intent.putExtra(EditColorActivity.EXTRA_DESCRIPTION, getString(R.string.colors_settings_minutes_description));
                 intent.putExtra(EditColorActivity.EXTRA_VALUE, Settings.getInstance().getmColorMinutes());
                 startActivityForResult(intent, REQUEST_MINUTES);
             }
         });
-        mMinutesValue = (TextView) findViewById(R.id.ColorsMinutesDescriptionText);
+        mMinutesValue = (TextView) findViewById(R.id.ColorsMinutesValueText);
         mMinutesValue.setText(String.format("0x%06X", Settings.getInstance().getmColorMinutes()));
 
         // Broadcast receiver for progress
@@ -117,9 +116,9 @@ public class SettingsColorsActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             String title = intent.getStringExtra(EditColorActivity.EXTRA_TITLE);
             int value = intent.getIntExtra(EditColorActivity.EXTRA_VALUE, 0);
-            if (title.equals("Color hours")) {
+            if (title.equals(getString(R.string.colors_settings_hours_title))) {
                 Commands.setColorHours(value);
-            } else if (title.equals("Color minutes")) {
+            } else if (title.equals(getString(R.string.colors_settings_minutes_title))) {
                 Commands.setColorMinutes(value);
             }
         }

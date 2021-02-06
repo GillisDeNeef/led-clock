@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -54,13 +53,13 @@ public class SettingsBrightnessActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(SettingsBrightnessActivity.this, EditPercentageActivity.class);
-                intent.putExtra(EditPercentageActivity.EXTRA_TITLE, "Brightness day");
-                intent.putExtra(EditPercentageActivity.EXTRA_DESCRIPTION, "Set brightness percentage for leds during day.");
+                intent.putExtra(EditPercentageActivity.EXTRA_TITLE, getString(R.string.brightness_settings_day_title));
+                intent.putExtra(EditPercentageActivity.EXTRA_DESCRIPTION, getString(R.string.brightness_settings_day_description));
                 intent.putExtra(EditPercentageActivity.EXTRA_VALUE, Settings.getInstance().getmBrightnessDay());
                 startActivityForResult(intent, REQUEST_DAY);
             }
         });
-        mDayValue = (TextView) findViewById(R.id.BrightnessDayDescriptionText);
+        mDayValue = (TextView) findViewById(R.id.BrightnessDayValueText);
         mDayValue.setText(String.valueOf(Settings.getInstance().getmBrightnessDay()));
 
         // Set brightness night upon clicking linearlayout
@@ -70,13 +69,13 @@ public class SettingsBrightnessActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(SettingsBrightnessActivity.this, EditPercentageActivity.class);
-                intent.putExtra(EditPercentageActivity.EXTRA_TITLE, "Brightness night");
-                intent.putExtra(EditPercentageActivity.EXTRA_DESCRIPTION, "Set brightness percentage for leds during night.");
+                intent.putExtra(EditPercentageActivity.EXTRA_TITLE, getString(R.string.brightness_settings_night_title));
+                intent.putExtra(EditPercentageActivity.EXTRA_DESCRIPTION, getString(R.string.brightness_settings_night_description));
                 intent.putExtra(EditPercentageActivity.EXTRA_VALUE, Settings.getInstance().getmBrightnessNight());
                 startActivityForResult(intent, REQUEST_NIGHT);
             }
         });
-        mNightValue = (TextView) findViewById(R.id.BrightnessNightDescriptionText);
+        mNightValue = (TextView) findViewById(R.id.BrightnessNightValueText);
         mNightValue.setText(String.valueOf(Settings.getInstance().getmBrightnessNight()));
 
         // Broadcast receiver for progress
@@ -117,9 +116,9 @@ public class SettingsBrightnessActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             String title = intent.getStringExtra(EditPercentageActivity.EXTRA_TITLE);
             int value = intent.getIntExtra(EditPercentageActivity.EXTRA_VALUE, 0);
-            if (title.equals("Brightness day")) {
+            if (title.equals(getString(R.string.brightness_settings_day_title))) {
                 Commands.setBrightnessDay(value);
-            } else if (title.equals("Brightness night")) {
+            } else if (title.equals(getString(R.string.brightness_settings_night_title))) {
                 Commands.setBrightnessNight(value);
             }
         }

@@ -50,13 +50,13 @@ public class SettingsLocationActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(SettingsLocationActivity.this, EditDoubleActivity.class);
-                intent.putExtra(EditDoubleActivity.EXTRA_TITLE, "Longitude");
-                intent.putExtra(EditDoubleActivity.EXTRA_DESCRIPTION, "Enter longitude of your current location (used to fetch sunrise and sunset times).");
+                intent.putExtra(EditDoubleActivity.EXTRA_TITLE, getString(R.string.location_settings_longitude_title));
+                intent.putExtra(EditDoubleActivity.EXTRA_DESCRIPTION, getString(R.string.location_settings_longitude_description));
                 intent.putExtra(EditDoubleActivity.EXTRA_VALUE, Settings.getInstance().getmLongitude());
                 startActivityForResult(intent, REQUEST_LONGITUDE);
             }
         });
-        mLongitudeValue = (TextView) findViewById(R.id.LocationLongitudeDescriptionText);
+        mLongitudeValue = (TextView) findViewById(R.id.LocationLongitudeValueText);
         mLongitudeValue.setText(String.valueOf(Settings.getInstance().getmLongitude()));
 
         // Set latitude upon clicking linearlayout
@@ -66,13 +66,13 @@ public class SettingsLocationActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(SettingsLocationActivity.this, EditDoubleActivity.class);
-                intent.putExtra(EditDoubleActivity.EXTRA_TITLE, "Latitude");
-                intent.putExtra(EditDoubleActivity.EXTRA_DESCRIPTION, "Enter latitude of your current location (used to fetch sunrise and sunset times).");
+                intent.putExtra(EditDoubleActivity.EXTRA_TITLE, getString(R.string.location_settings_latitude_title));
+                intent.putExtra(EditDoubleActivity.EXTRA_DESCRIPTION, getString(R.string.location_settings_latitude_description));
                 intent.putExtra(EditDoubleActivity.EXTRA_VALUE, Settings.getInstance().getmLatitude());
                 startActivityForResult(intent, REQUEST_LATITUDE);
             }
         });
-        mLatitudeValue = (TextView) findViewById(R.id.LocationLatitudeDescriptionText);
+        mLatitudeValue = (TextView) findViewById(R.id.LocationLatitudeValueText);
         mLatitudeValue.setText(String.valueOf(Settings.getInstance().getmLatitude()));
     }
 
