@@ -17,22 +17,16 @@ bool datetime::sunset_flag;
 // Start wifi connection
 bool datetime::begin_wifi(char* ssid, char* password)
 {
-  Serial.println("- WIFI -");
   WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) delay(100);
-  Serial.printf("Connected to %s \n", ssid);
-  Serial.println();
+  while (WiFi.status() != WL_CONNECTED) vTaskDelay(100 / portTICK_PERIOD_MS);
 }
 
 // Start ntp connection
 bool datetime::begin_ntp(char* ntp, int gmt, int daylight)
 {
-  Serial.println("- NTP -");
-  configTime(gmt, daylight, ntp);
-  while(!getLocalTime(&previous_time)) delay(100);
-  Serial.printf("Connected to %s \n", ntp);
-  Serial.println();
-  gmt_offset = gmt / 3600;
+  configTime(gmt*60, daylight*60, ntp);
+  while(!getLocalTime(&previous_time)) vTaskDelay(100 / portTICK_PERIOD_MS);
+  gmt_offset = gmt / 60;
 }
 
 // Returns current time
@@ -86,9 +80,6 @@ bool datetime::update_sunset_sunrise()
   sunset_time.tm_hour = (temp[11]-0x30) * 10 + (temp[12]-0x30) + gmt_offset;
   sunset_time.tm_min = (temp[14]-0x30) * 10 + (temp[15]-0x30);
 
-  Serial.printf("Sunrise at %d:%d.\n", sunrise_time.tm_hour, sunrise_time.tm_min);
-  Serial.printf("Sunset at %d:%d.\n", sunset_time.tm_hour, sunset_time.tm_min);
-  Serial.println();
   return true;
 }
 

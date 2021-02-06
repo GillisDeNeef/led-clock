@@ -13,7 +13,7 @@ class Configuration
 {
   public:
     /* Max string length */
-    static const int STRING_SIZE = 60;
+    static const int STRING_SIZE = 64;
     
     /* Wifi settings */
     struct WifiSettings {
@@ -21,25 +21,26 @@ class Configuration
       char password[STRING_SIZE];
     };
 
-    /* Bluetooth settings */
-    struct BtSettings {
-      
-    };
-
     /* Time settings */
     struct TimeSettings {
       char ntp[STRING_SIZE];
-      long refresh_rate;
-      long gmt_offset;
-      long daylight_offset;
+      int gmt_offset;
+      int daylight_offset;
+      int refresh_rate;
+    };
+
+    /* Location settings */
+    struct LocationSettings {
+      double longitude;
+      double latitude;
     };
 
     /* Led settings */
     struct LedSettings {
       long rgb_hours;
       long rgb_minutes;
-      byte brightness_day;
-      byte brightness_night;
+      int brightness_day;
+      int brightness_night;
     };
     
     /* Functions */
@@ -50,8 +51,8 @@ class Configuration
 
     /* Accessors */
     WifiSettings wifi;
-    BtSettings bt;
     TimeSettings time;
+    LocationSettings location;
     LedSettings led;
 };
 

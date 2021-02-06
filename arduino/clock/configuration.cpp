@@ -16,9 +16,11 @@ void Configuration::reset()
   strcpy(this->wifi.ssid, "");
   strcpy(this->wifi.password, "");
   strcpy(this->time.ntp, "pool.ntp.org");
-  this->time.gmt_offset = 3600;
-  this->time.daylight_offset = 3600;
+  this->time.gmt_offset = 60;
+  this->time.daylight_offset = 60;
   this->time.refresh_rate = 1;
+  this->location.longitude = 0.0;
+  this->location.latitude = 0.0;
   this->led.rgb_hours = 0x00FFFFFF;
   this->led.rgb_minutes = 0x00FFFFFF;
   this->led.brightness_day = 10;
@@ -53,6 +55,8 @@ void Configuration::print()
   Serial.printf("configuration.time.gmt_offset:               \t %d \n", this->time.gmt_offset);
   Serial.printf("configuration.time.daylight_offset:          \t %d \n", this->time.daylight_offset);
   Serial.printf("configuration.time.refresh_rate:             \t %d \n", this->time.refresh_rate);
+  Serial.printf("configuration.location.longitude:            \t %f \n", this->location.longitude);
+  Serial.printf("configuration.location.latitude:             \t %f \n", this->location.latitude);
   Serial.printf("configuration.led.rgb_hours:                 \t 0x%6X \n", this->led.rgb_hours);
   Serial.printf("configuration.led.rgb_minutes:               \t 0x%6X \n", this->led.rgb_minutes);
   Serial.printf("configuration.led.brightness_day_hours:      \t %d \n", this->led.brightness_day);
