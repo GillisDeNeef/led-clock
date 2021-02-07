@@ -29,14 +29,13 @@ void setup()
 
   // Initialize LEDs
   leds::begin();
-  leds::set_error(8888);
   leds::set_color_hours(configuration.led.rgb_hours);
   leds::set_color_mins(configuration.led.rgb_minutes);
   leds::set_hours_leading_zero(false);
   
   // Create RTOS tasks
-  xTaskCreate(taskTime, "Time task", 4000, NULL, 1, &timehandle);
-  xTaskCreate(taskBluetooth, "Bluetooth task", 4000, NULL, 2, &bthandle);
+  xTaskCreate(taskTime, "Time task", 16000, NULL, 1, &timehandle);
+  xTaskCreate(taskBluetooth, "Bluetooth task", 16000, NULL, 2, &bthandle);
 }
 
 /* Bluetooth task */
