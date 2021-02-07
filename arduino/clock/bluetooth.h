@@ -29,6 +29,7 @@ namespace bluetooth
   const char* const BRIGHTNESS_DAY   = "B0";
   const char* const BRIGHTNESS_NIGHT = "B1";
   const char* const FETCH_SETTINGS   = "S0";
+  const char* const SAVE_SETTINGS    = "S1";
   
   /* Initialization */
   bool begin(const char* name);
@@ -37,9 +38,10 @@ namespace bluetooth
   void send(const char* const cmd);
   void send(const char* const cmd, const char* value);
   void send(const char* const cmd, double value);
-  void send(const char* const cmd, long value);
-  void send(const char* const cmd, int value);
-  bool receive(unsigned char* data, int &length);
+  void send(const char* const cmd, unsigned long value);
+  void send(const char* const cmd, unsigned int value);
+  bool receive(unsigned char* msg, int &len);
+  unsigned char* get_data(unsigned char* msg, int len);
 
   /* Variables */
   extern BluetoothSerial bt;

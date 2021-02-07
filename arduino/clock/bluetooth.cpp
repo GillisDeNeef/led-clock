@@ -56,7 +56,7 @@ void bluetooth::send(const char* const cmd, double value)
 }
 
 // Send long value as hex
-void bluetooth::send(const char* const cmd, long value)
+void bluetooth::send(const char* const cmd, unsigned long value)
 {
   unsigned char temp[128];
 
@@ -72,7 +72,7 @@ void bluetooth::send(const char* const cmd, long value)
 }
 
 // Send int value
-void bluetooth::send(const char* const cmd, int value)
+void bluetooth::send(const char* const cmd, unsigned int value)
 {
   unsigned char temp[128];
 
@@ -88,21 +88,28 @@ void bluetooth::send(const char* const cmd, int value)
 }
 
 // Receive data from android app
-bool bluetooth::receive(unsigned char* data, int &length)
+bool bluetooth::receive(unsigned char* msg, int &len)
 {
   int temp = bt.read();
   if (temp < 0 || temp != START) return false;
 
-  length = 0;
+  len = 0;
   temp = bt.read();
   vTaskDelay(1 / portTICK_PERIOD_MS);
 
   while (temp > 0) {
-    data[length++] = temp & 0xFF;
+    msg[len++] = temp & 0xFF;
     temp = bt.read();
     if (temp == STOP) return true;
     else vTaskDelay(1 / portTICK_PERIOD_MS);
   }
 
   return false;
+}
+
+// Get pointer to data within given message
+unsigned char* bluetooth::get_data(unsigned char* msg, int len)
+{
+  if (len <= 2) return nullptr;
+  else return &msg[2];
 }

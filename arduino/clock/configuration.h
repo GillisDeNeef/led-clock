@@ -24,9 +24,9 @@ class Configuration
     /* Time settings */
     struct TimeSettings {
       char ntp[STRING_SIZE];
-      int gmt_offset;
-      int daylight_offset;
-      int refresh_rate;
+      unsigned int gmt_offset;
+      unsigned int daylight_time;
+      unsigned int refresh_rate;
     };
 
     /* Location settings */
@@ -37,10 +37,10 @@ class Configuration
 
     /* Led settings */
     struct LedSettings {
-      long rgb_hours;
-      long rgb_minutes;
-      int brightness_day;
-      int brightness_night;
+      unsigned long rgb_hours;
+      unsigned long rgb_minutes;
+      unsigned int brightness_day;
+      unsigned int brightness_night;
     };
     
     /* Functions */

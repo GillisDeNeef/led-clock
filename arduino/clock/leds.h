@@ -1,5 +1,5 @@
 /*
-  configuration.h
+  leds.h
 */
 
 #ifndef Leds_h

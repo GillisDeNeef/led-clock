@@ -17,7 +17,7 @@ void Configuration::reset()
   strcpy(this->wifi.password, "");
   strcpy(this->time.ntp, "pool.ntp.org");
   this->time.gmt_offset = 60;
-  this->time.daylight_offset = 60;
+  this->time.daylight_time = 60;
   this->time.refresh_rate = 1;
   this->location.longitude = 0.0;
   this->location.latitude = 0.0;
@@ -53,7 +53,7 @@ void Configuration::print()
   Serial.printf("configuration.wifi.password:                 \t %s \n", this->wifi.password);
   Serial.printf("configuration.time.ntp:                      \t %s \n", this->time.ntp);
   Serial.printf("configuration.time.gmt_offset:               \t %d \n", this->time.gmt_offset);
-  Serial.printf("configuration.time.daylight_offset:          \t %d \n", this->time.daylight_offset);
+  Serial.printf("configuration.time.daylight_time:            \t %d \n", this->time.daylight_time);
   Serial.printf("configuration.time.refresh_rate:             \t %d \n", this->time.refresh_rate);
   Serial.printf("configuration.location.longitude:            \t %f \n", this->location.longitude);
   Serial.printf("configuration.location.latitude:             \t %f \n", this->location.latitude);
