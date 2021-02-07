@@ -145,7 +145,7 @@ public class BluetoothSerial {
             while (!mStopThread) {
                 try {
                     bytes += mmInStream.read(buffer, bytes, 256 - bytes);
-                    if (bytes > 0) {
+                    while (bytes > 0) {
                         start = (new String(buffer, StandardCharsets.UTF_8)).indexOf(START);
                         if (start >= 0) {
                             stop = (new String(buffer, StandardCharsets.UTF_8)).indexOf(STOP);

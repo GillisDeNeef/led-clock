@@ -5,6 +5,7 @@ import android.os.Handler;
 public class Commands{
     // Identifiers
     public static final String FETCH_SETTINGS     = "S0";
+    public static final String SAVE_SETTINGS      = "S1";
     public static final String WIFI_SSID          = "W0";
     public static final String WIFI_PWD           = "W1";
     public static final String NTP_SERVER         = "N0";
@@ -55,8 +56,12 @@ public class Commands{
     {
         mSerial.write( FETCH_SETTINGS);
     }
+    public static void saveSettings()
+    {
+        mSerial.write( SAVE_SETTINGS);
+    }
 
     // Replies
     public static String getIdentifier(String message) { return message.substring(0, 2); }
-    public static String getValue(String message) { return (message.length() <= 2) ? null : message.substring(2, message.length()); }
+    public static String getValue(String message) { return (message.length() <= 2) ? "" : message.substring(2, message.length()); }
 }

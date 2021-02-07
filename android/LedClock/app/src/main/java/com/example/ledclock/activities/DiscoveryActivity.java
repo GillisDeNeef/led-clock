@@ -35,8 +35,7 @@ import com.example.ledclock.bluetooth.Commands;
 import com.example.ledclock.bluetooth.ThreadCompleteListener;
 import com.example.ledclock.settings.Settings;
 
-// Interface for task notifications
-
+// TODO: add leading zero setting for hours
 
 public class DiscoveryActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     /* Constants */
@@ -229,6 +228,8 @@ public class DiscoveryActivity extends AppCompatActivity implements PopupMenu.On
                     Settings.getInstance().setmBrightnessNight(Integer.parseInt(value));
                     break;
                 case Commands.FETCH_SETTINGS:
+                    Settings.getInstance().clearChanges();
+
                     Intent i = new Intent(DiscoveryActivity.this, SettingsActivity.class);
                     startActivity(i);
 
