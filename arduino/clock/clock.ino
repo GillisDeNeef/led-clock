@@ -182,7 +182,7 @@ void taskTime(void* parameter)
   // Initialize time tracking
   datetime::begin_wifi(configuration.wifi.ssid, configuration.wifi.password);
   datetime::begin_ntp(configuration.time.ntp, configuration.time.gmt_offset, configuration.time.daylight_time);
-  datetime::update_sunset_sunrise();
+  datetime::update_sunset_sunrise(configuration.location.latitude, configuration.location.longitude);
   if (datetime::is_day()) leds::set_brightness(configuration.led.brightness_day);
   else leds::set_brightness(configuration.led.brightness_night);
 
@@ -193,7 +193,7 @@ void taskTime(void* parameter)
   while (1) {
     if(datetime::get_time(hours, minutes)){
       if (datetime::passed_midnight()) {
-        datetime::update_sunset_sunrise();
+        datetime::update_sunset_sunrise(configuration.location.latitude, configuration.location.longitude);
       }
       else if (datetime::passed_sunrise()) {
         leds::set_brightness(configuration.led.brightness_day);
@@ -208,7 +208,7 @@ void taskTime(void* parameter)
       // let RTC handle time instead
       leds::set_red_dot(true);
     }
-    vTaskDelay(configuration.time.refresh_rate * 1000 / portTICK_PERIOD_MS);
+    vTaskDelay(configuration.time.refresh_rate / portTICK_PERIOD_MS);
   }
 }
 

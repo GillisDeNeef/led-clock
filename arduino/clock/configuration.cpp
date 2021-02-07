@@ -18,7 +18,7 @@ void Configuration::reset()
   strcpy(this->time.ntp, "pool.ntp.org");
   this->time.gmt_offset = 60;
   this->time.daylight_time = 60;
-  this->time.refresh_rate = 1;
+  this->time.refresh_rate = 1000;
   this->location.longitude = 0.0;
   this->location.latitude = 0.0;
   this->led.rgb_hours = 0x00FFFFFF;

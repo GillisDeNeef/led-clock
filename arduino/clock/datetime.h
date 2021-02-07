@@ -14,10 +14,6 @@
 /* Leds namespace */
 namespace datetime
 {
-  /* Constants */
-  static const float LONGITUDE = 3.8597476;
-  static const float LATITUDE = 50.9970364;
-
   /* Functions */
   bool begin_wifi(char* ssid, char* password);
   bool begin_ntp(char* ntp, int gmt, int daylight);
@@ -25,7 +21,7 @@ namespace datetime
   bool passed_midnight();
   bool passed_sunrise();
   bool passed_sunset();
-  bool update_sunset_sunrise();
+  bool update_sunset_sunrise(double latitude, double longitude);
   bool is_day();
   int compare_time(tm first, tm second);
   

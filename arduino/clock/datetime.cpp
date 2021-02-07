@@ -52,10 +52,10 @@ bool datetime::get_time(int &hours, int &minutes)
 }
 
 // Update sunset and sunrise times
-bool datetime::update_sunset_sunrise()
+bool datetime::update_sunset_sunrise(double latitude, double longitude)
 {
   char temp[100];
-  sprintf(temp, "https://api.sunrise-sunset.org/json?lat=%.7f&lng=%.7f&formatted=0", LATITUDE, LONGITUDE);
+  sprintf(temp, "https://api.sunrise-sunset.org/json?lat=%.7f&lng=%.7f&formatted=0", latitude, longitude);
   
   HTTPClient http;
   if (!http.begin(temp)) return false;
