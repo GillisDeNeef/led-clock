@@ -5,7 +5,7 @@
     <item
         android:id="@+id/ConnectItem"
         android:checkable="false"
-        android:title="@string/settings_option_disconnect" />
+        android:title="@string/settings_option_connect" />
     <item
         android:id="@+id/DarkModeItem"
         android:title="@string/settings_option_dark_mode"
