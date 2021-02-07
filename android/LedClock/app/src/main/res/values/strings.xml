@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LedClock</string>
+    <string name="app_name">LED Clock</string>
 
     <string name="main_starting">Starting bluetooth adapter</string>
     <string name="main_start_discovery">Searching bluetooth devices</string>
