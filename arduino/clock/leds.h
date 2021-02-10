@@ -6,6 +6,7 @@
 #define Leds_h
 
 /* Library includes */
+#define FASTLED_ALLOW_INTERRUPTS 0
 #include <FastLED.h>
 
 /* Leds namespace */

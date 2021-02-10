@@ -82,7 +82,7 @@
         android:hint="@string/edit_activity_value"
         android:inputType="numberSigned"
         android:text="@string/edit_activity_value"
-        app:debounceDuration="50"
+        app:debounceDuration="10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ResultColorDescriptionText" />

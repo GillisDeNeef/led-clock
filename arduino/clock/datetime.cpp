@@ -18,14 +18,14 @@ bool datetime::sunset_flag;
 bool datetime::begin_wifi(char* ssid, char* password)
 {
   WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) vTaskDelay(100 / portTICK_PERIOD_MS);
+  while (WiFi.status() != WL_CONNECTED) delay(500);
 }
 
 // Start ntp connection
 bool datetime::begin_ntp(char* ntp, int gmt, int daylight)
 {
   configTime(gmt*60, daylight*60, ntp);
-  while(!getLocalTime(&previous_time)) vTaskDelay(100 / portTICK_PERIOD_MS);
+  while(!getLocalTime(&previous_time)) delay(500);
   gmt_offset = gmt / 60;
 }
 
@@ -54,33 +54,48 @@ bool datetime::get_time(int &hours, int &minutes)
 // Update sunset and sunrise times
 bool datetime::update_sunset_sunrise(double latitude, double longitude)
 {
-  char temp[100];
+  char temp[128];
   sprintf(temp, "https://api.sunrise-sunset.org/json?lat=%.7f&lng=%.7f&formatted=0", latitude, longitude);
-  
+
   HTTPClient http;
   if (!http.begin(temp)) return false;
-  http.GET();
-  String response = http.getString();
+  int httpResponseCode = http.GET();
   
-  StaticJsonDocument<512> json;
-  DeserializationError error = deserializeJson(json, response);
-  if (error) return false;
-
-  strcpy(temp, json["results"]["sunrise"].as<const char*>());
-  sunrise_time.tm_year = ((temp[0]-0x30) * 1000 + (temp[1]-0x30) * 100 + (temp[2]-0x30) * 10 + (temp[3]-0x30)) - 1900;
-  sunrise_time.tm_mon = ((temp[5]-0x30) * 10 + (temp[6]-0x30)) - 1;
-  sunrise_time.tm_mday = (temp[8]-0x30) * 10 + (temp[9]-0x30);
-  sunrise_time.tm_hour = (temp[11]-0x30) * 10 + (temp[12]-0x30) + gmt_offset;
-  sunrise_time.tm_min = (temp[14]-0x30) * 10 + (temp[15]-0x30);
-
-  strcpy(temp, json["results"]["sunset"].as<const char*>());
-  sunset_time.tm_year = ((temp[0]-0x30) * 1000 + (temp[1]-0x30) * 100 + (temp[2]-0x30) * 10 + (temp[3]-0x30)) - 1900;
-  sunset_time.tm_mon = ((temp[5]-0x30) * 10 + (temp[6]-0x30)) - 1;
-  sunset_time.tm_mday = (temp[8]-0x30) * 10 + (temp[9]-0x30);
-  sunset_time.tm_hour = (temp[11]-0x30) * 10 + (temp[12]-0x30) + gmt_offset;
-  sunset_time.tm_min = (temp[14]-0x30) * 10 + (temp[15]-0x30);
-
-  return true;
+  if (httpResponseCode>0) {
+    Serial.print("HTTP Response code: ");
+    Serial.println(httpResponseCode);
+    
+    String response = http.getString();
+    Serial.println(response);
+    
+    StaticJsonDocument<1024> json;
+    DeserializationError error = deserializeJson(json, response);
+    if (error) return false;
+  
+    strcpy(temp, json["results"]["sunrise"].as<const char*>());
+    sunrise_time.tm_year = ((temp[0]-0x30) * 1000 + (temp[1]-0x30) * 100 + (temp[2]-0x30) * 10 + (temp[3]-0x30)) - 1900;
+    sunrise_time.tm_mon = ((temp[5]-0x30) * 10 + (temp[6]-0x30)) - 1;
+    sunrise_time.tm_mday = (temp[8]-0x30) * 10 + (temp[9]-0x30);
+    sunrise_time.tm_hour = (temp[11]-0x30) * 10 + (temp[12]-0x30) + gmt_offset;
+    sunrise_time.tm_min = (temp[14]-0x30) * 10 + (temp[15]-0x30);
+  
+    strcpy(temp, json["results"]["sunset"].as<const char*>());
+    sunset_time.tm_year = ((temp[0]-0x30) * 1000 + (temp[1]-0x30) * 100 + (temp[2]-0x30) * 10 + (temp[3]-0x30)) - 1900;
+    sunset_time.tm_mon = ((temp[5]-0x30) * 10 + (temp[6]-0x30)) - 1;
+    sunset_time.tm_mday = (temp[8]-0x30) * 10 + (temp[9]-0x30);
+    sunset_time.tm_hour = (temp[11]-0x30) * 10 + (temp[12]-0x30) + gmt_offset;
+    sunset_time.tm_min = (temp[14]-0x30) * 10 + (temp[15]-0x30);
+  
+    http.end();
+    return true;
+  }
+  else {
+    Serial.print("Error code: ");
+    Serial.println(httpResponseCode);
+    
+    http.end();
+    return false;
+  }  
 }
 
 // Returns true if its day
