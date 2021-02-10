@@ -49,41 +49,41 @@ void taskTime(void* parameter)
   // Initialize time tracking
   datetime::begin_wifi(configuration.wifi.ssid, configuration.wifi.password);
   datetime::begin_ntp(configuration.time.ntp, configuration.time.gmt_offset, configuration.time.daylight_time);
-  ///datetime::update_sunset_sunrise(configuration.location.latitude, configuration.location.longitude);
-  ///if (datetime::is_day()) leds::set_brightness(configuration.led.brightness_day);
-  ///else leds::set_brightness(configuration.led.brightness_night);
+  datetime::update_sunset_sunrise(configuration.location.latitude, configuration.location.longitude);
+  if (datetime::is_day()) leds::set_brightness(configuration.led.brightness_day);
+  else leds::set_brightness(configuration.led.brightness_night);
   
   //disconnect WiFi as it's no longer needed
   WiFi.disconnect(true);
   WiFi.mode(WIFI_OFF);
   
-  //Serial.println("Updated sunrise and sunset times to :");
-  //Serial.println(&datetime::sunrise_time, "%A, %B %d %Y %H:%M:%S");
-  //Serial.println(&datetime::sunset_time, "%A, %B %d %Y %H:%M:%S");
+  Serial.println("Updated sunrise and sunset times to :");
+  Serial.println(&datetime::sunrise_time, "%A, %B %d %Y %H:%M:%S");
+  Serial.println(&datetime::sunset_time, "%A, %B %d %Y %H:%M:%S");
   
   // Loop
   while (1) {
     if(datetime::get_time(hours, minutes)){
       if (datetime::passed_midnight()) {
-        //datetime::update_sunset_sunrise(configuration.location.latitude, configuration.location.longitude);
-        //Serial.println("Updated sunrise and sunset times to :");
-        //Serial.println(&datetime::sunrise_time, "%A, %B %d %Y %H:%M:%S");
-        //Serial.println(&datetime::sunset_time, "%A, %B %d %Y %H:%M:%S");
+        datetime::update_sunset_sunrise(configuration.location.latitude, configuration.location.longitude);
+        Serial.println("Updated sunrise and sunset times to:");
+        Serial.println(&datetime::sunrise_time, "%A, %B %d %Y %H:%M:%S");
+        Serial.println(&datetime::sunset_time, "%A, %B %d %Y %H:%M:%S");
       }
       else if (datetime::passed_sunrise()) {
-        //leds::set_brightness(configuration.led.brightness_day);
-        //Serial.printf("Changed to day brightness (%d).\n", configuration.led.brightness_day);
+        leds::set_brightness(configuration.led.brightness_day);
+        Serial.printf("Changed to day brightness (%d).\n", configuration.led.brightness_day);
       }
       else if (datetime::passed_sunset()) {
-        //leds::set_brightness(configuration.led.brightness_night);
-        //Serial.printf("Changed to night brightness (%d).\n", configuration.led.brightness_night);
+        leds::set_brightness(configuration.led.brightness_night);
+        Serial.printf("Changed to night brightness (%d).\n", configuration.led.brightness_night);
       }
-      //leds::set_red_dot(false);
+      leds::set_red_dot(false);
       leds::set_time(hours, minutes);
     }
     else {
       // let RTC handle time instead
-      //leds::set_red_dot(true);
+      leds::set_red_dot(true);
     }
     vTaskDelay(configuration.time.refresh_rate / portTICK_PERIOD_MS);
   }

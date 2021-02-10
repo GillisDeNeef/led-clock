@@ -61,30 +61,35 @@ bool datetime::update_sunset_sunrise(double latitude, double longitude)
   if (!http.begin(temp)) return false;
   int httpResponseCode = http.GET();
   
-  if (httpResponseCode>0) {
+  if (httpResponseCode > 0) {
     Serial.print("HTTP Response code: ");
     Serial.println(httpResponseCode);
     
     String response = http.getString();
     Serial.println(response);
+    if (response.equals("")) return false;
     
     StaticJsonDocument<1024> json;
     DeserializationError error = deserializeJson(json, response);
     if (error) return false;
-  
-    strcpy(temp, json["results"]["sunrise"].as<const char*>());
-    sunrise_time.tm_year = ((temp[0]-0x30) * 1000 + (temp[1]-0x30) * 100 + (temp[2]-0x30) * 10 + (temp[3]-0x30)) - 1900;
-    sunrise_time.tm_mon = ((temp[5]-0x30) * 10 + (temp[6]-0x30)) - 1;
-    sunrise_time.tm_mday = (temp[8]-0x30) * 10 + (temp[9]-0x30);
-    sunrise_time.tm_hour = (temp[11]-0x30) * 10 + (temp[12]-0x30) + gmt_offset;
-    sunrise_time.tm_min = (temp[14]-0x30) * 10 + (temp[15]-0x30);
-  
-    strcpy(temp, json["results"]["sunset"].as<const char*>());
-    sunset_time.tm_year = ((temp[0]-0x30) * 1000 + (temp[1]-0x30) * 100 + (temp[2]-0x30) * 10 + (temp[3]-0x30)) - 1900;
-    sunset_time.tm_mon = ((temp[5]-0x30) * 10 + (temp[6]-0x30)) - 1;
-    sunset_time.tm_mday = (temp[8]-0x30) * 10 + (temp[9]-0x30);
-    sunset_time.tm_hour = (temp[11]-0x30) * 10 + (temp[12]-0x30) + gmt_offset;
-    sunset_time.tm_min = (temp[14]-0x30) * 10 + (temp[15]-0x30);
+
+    if (strlen(json["results"]["sunrise"].as<const char*>()) >= 16) {
+      strcpy(temp, json["results"]["sunrise"].as<const char*>());
+      sunrise_time.tm_year = ((temp[0]-0x30) * 1000 + (temp[1]-0x30) * 100 + (temp[2]-0x30) * 10 + (temp[3]-0x30)) - 1900;
+      sunrise_time.tm_mon = ((temp[5]-0x30) * 10 + (temp[6]-0x30)) - 1;
+      sunrise_time.tm_mday = (temp[8]-0x30) * 10 + (temp[9]-0x30);
+      sunrise_time.tm_hour = (temp[11]-0x30) * 10 + (temp[12]-0x30) + gmt_offset;
+      sunrise_time.tm_min = (temp[14]-0x30) * 10 + (temp[15]-0x30);
+    }
+
+    if (strlen(json["results"]["sunset"].as<const char*>()) >= 16) {
+      strcpy(temp, json["results"]["sunset"].as<const char*>());
+      sunset_time.tm_year = ((temp[0]-0x30) * 1000 + (temp[1]-0x30) * 100 + (temp[2]-0x30) * 10 + (temp[3]-0x30)) - 1900;
+      sunset_time.tm_mon = ((temp[5]-0x30) * 10 + (temp[6]-0x30)) - 1;
+      sunset_time.tm_mday = (temp[8]-0x30) * 10 + (temp[9]-0x30);
+      sunset_time.tm_hour = (temp[11]-0x30) * 10 + (temp[12]-0x30) + gmt_offset;
+      sunset_time.tm_min = (temp[14]-0x30) * 10 + (temp[15]-0x30);
+    }
   
     http.end();
     return true;
