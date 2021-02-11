@@ -21,6 +21,10 @@
     <string name="settings_light_colors">Colors</string>
     <string name="settings_light_brightness">Brightness</string>
     <string name="settings_save_reboot">SAVE and REBOOT</string>
+    <string name="settings_dialog_title">Save and reboot device?</string>
+    <string name="settings_dialog_message">Changes have been made to the device settings. Press yes to save the settings and reboot the device. Press no to discard settings and reboot the device.</string>
+    <string name="settings_dialog_positive">YES</string>
+    <string name="settings_dialog_negative">NO</string>
 
     <string name="wifi_settings_title">Wifi credentials</string>
     <string name="wifi_settings_ssid_title">SSID</string>

@@ -52,11 +52,6 @@ void taskTime(void* parameter)
   datetime::update_sunset_sunrise(configuration.location.latitude, configuration.location.longitude);
   if (datetime::is_day()) leds::set_brightness(configuration.led.brightness_day);
   else leds::set_brightness(configuration.led.brightness_night);
-  
-  //disconnect WiFi as it's no longer needed
-  WiFi.disconnect(true);
-  WiFi.mode(WIFI_OFF);
-  
   Serial.println("Updated sunrise and sunset times to :");
   Serial.println(&datetime::sunrise_time, "%A, %B %d %Y %H:%M:%S");
   Serial.println(&datetime::sunset_time, "%A, %B %d %Y %H:%M:%S");
@@ -186,7 +181,6 @@ void taskBluetooth(void* parameter)
         if (bluetooth::get_data(message, count) == nullptr) configuration.led.rgb_hours = 0;
         else configuration.led.rgb_hours = strtoul((char*)bluetooth::get_data(message, count), NULL, 16);
         
-        Serial.printf("Color: %06X\n", configuration.led.rgb_minutes);
         leds::set_color_hours(configuration.led.rgb_hours);
         leds::set_time(88, 88);
       }
@@ -194,7 +188,6 @@ void taskBluetooth(void* parameter)
         if (bluetooth::get_data(message, count) == nullptr) configuration.led.rgb_minutes = 0;
         else configuration.led.rgb_minutes = strtoul((char*)bluetooth::get_data(message, count), NULL, 16);
         
-        Serial.printf("Color: %06X\n", configuration.led.rgb_minutes);
         leds::set_color_mins(configuration.led.rgb_minutes);
         leds::set_time(88, 88);
       }
@@ -214,6 +207,9 @@ void taskBluetooth(void* parameter)
       }
       else if (memcmp(message, bluetooth::SAVE_SETTINGS, 2) == 0) {
         configuration.save();
+        ESP.restart();
+      }
+      else if (memcmp(message, bluetooth::REBOOT, 2) == 0) {
         ESP.restart();
       }
       memset(message, 0, sizeof(message));

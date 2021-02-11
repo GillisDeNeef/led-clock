@@ -19,6 +19,8 @@ bool datetime::begin_wifi(char* ssid, char* password)
 {
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) delay(500);
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
 }
 
 // Start ntp connection
@@ -55,8 +57,11 @@ bool datetime::get_time(int &hours, int &minutes)
 bool datetime::update_sunset_sunrise(double latitude, double longitude)
 {
   char temp[128];
-  sprintf(temp, "https://api.sunrise-sunset.org/json?lat=%.7f&lng=%.7f&formatted=0", latitude, longitude);
+  sprintf(temp, "http://api.sunrise-sunset.org/json?lat=%.7f&lng=%.7f&formatted=0", latitude, longitude);
 
+  //WiFi.mode(WIFI_STA);
+  //WiFi.reconnect();
+  
   HTTPClient http;
   if (!http.begin(temp)) return false;
   int httpResponseCode = http.GET();
@@ -92,6 +97,8 @@ bool datetime::update_sunset_sunrise(double latitude, double longitude)
     }
   
     http.end();
+    //WiFi.disconnect(true);
+    //WiFi.mode(WIFI_OFF);
     return true;
   }
   else {
@@ -99,6 +106,8 @@ bool datetime::update_sunset_sunrise(double latitude, double longitude)
     Serial.println(httpResponseCode);
     
     http.end();
+    //WiFi.disconnect(true);
+    //WiFi.mode(WIFI_OFF);
     return false;
   }  
 }

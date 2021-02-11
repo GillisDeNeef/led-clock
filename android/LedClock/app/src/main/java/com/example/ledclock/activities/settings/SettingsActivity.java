@@ -44,6 +44,7 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
                     showSaveRebootDialog();
                 }
                 else {
+                    Commands.reboot();
                     finish();
                 }
             }
@@ -163,6 +164,7 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
                     showSaveRebootDialog();
                 }
                 else {
+                    Commands.reboot();
                     finish();
                 }
                 return true;
@@ -176,17 +178,18 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
         builder.setCancelable(false);
-        builder.setTitle("Save and reboot device?");
-        builder.setMessage("Changes have been made to the device settings. Press yes to save the settings to the device. The device will also needs to reboot for the changes to become active.");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setTitle(getString(R.string.settings_dialog_title));
+        builder.setMessage(getString(R.string.settings_dialog_message));
+        builder.setPositiveButton(getString(R.string.settings_dialog_positive), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 Commands.saveSettings();
                 finish();
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.settings_dialog_negative), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
+                Commands.reboot();
+                finish();
             }
         });
 

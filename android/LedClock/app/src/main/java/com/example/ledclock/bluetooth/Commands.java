@@ -6,6 +6,7 @@ public class Commands{
     // Identifiers
     public static final String FETCH_SETTINGS     = "S0";
     public static final String SAVE_SETTINGS      = "S1";
+    public static final String REBOOT             = "S2";
     public static final String WIFI_SSID          = "W0";
     public static final String WIFI_PWD           = "W1";
     public static final String NTP_SERVER         = "N0";
@@ -59,6 +60,10 @@ public class Commands{
     public static void saveSettings()
     {
         mSerial.write( SAVE_SETTINGS);
+    }
+    public static void reboot()
+    {
+        mSerial.write( REBOOT);
     }
 
     // Replies

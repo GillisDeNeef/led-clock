@@ -30,6 +30,7 @@ namespace bluetooth
   const char* const BRIGHTNESS_NIGHT = "B1";
   const char* const FETCH_SETTINGS   = "S0";
   const char* const SAVE_SETTINGS    = "S1";
+  const char* const REBOOT           = "S2";
   
   /* Initialization */
   bool begin(const char* name);
